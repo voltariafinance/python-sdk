@@ -63,6 +63,11 @@ class DocumentResponse(UniversalBaseModel):
     Optional expiry date of the document
     """
 
+    distribution_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The ID of the associated distribution (coupon), if applicable
+    """
+
     created_at: dt.datetime = pydantic.Field()
     """
     The date and time when the document was created

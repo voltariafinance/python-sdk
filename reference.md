@@ -794,6 +794,111 @@ client.clients.reject_onboarding(
 </dl>
 </details>
 
+<details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">list_client_portal_users</a>(...) -> PaginatedResponseClientUserResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of portal users belonging to a client.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.clients.list_client_portal_users(
+    client_id="client_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, email, status, first_name, last_name. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">add_client_portal_user</a>(...) -> ClientUserResponse</code></summary>
 <dl>
 <dd>
@@ -1911,6 +2016,327 @@ client.accounts.get_client_account(
 <dd>
 
 **account_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Collections
+<details><summary><code>client.collections.<a href="src/voltaria_sdk/collections/client.py">list_collection_actions</a>(...) -> PaginatedResponseCollectionActionResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all collection actions configured for your partner account.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.collections.list_collection_actions()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, name, action_type, is_active, timing. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.collections.<a href="src/voltaria_sdk/collections/client.py">list_collection_action_logs</a>(...) -> PaginatedResponseCollectionActionLogResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve collection action logs for your partner account. Supports filtering by client, loan, installment, status, or action type.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.collections.list_collection_action_logs()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**loan_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**installment_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[CollectionActionStatusEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**action_type:** `typing.Optional[CollectionActionTypeEnum]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, collection_action_id, action_type, status, client_id, loan_id, installment_id, scheduled_for. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.collections.<a href="src/voltaria_sdk/collections/client.py">update_collection_action_log</a>(...) -> CollectionActionLogResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the status and notes of a collection action log.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.collections.update_collection_action_log(
+    log_id="log_id",
+    status="completed",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**log_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `CollectionActionLogUpdatePayloadStatus` — The updated status of the action: 'completed' or 'failed'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notes:** `typing.Optional[str]` — Notes about this action
     
 </dd>
 </dl>
@@ -3692,6 +4118,271 @@ client.installments.delete_installment(
 </details>
 
 ## Loans
+<details><summary><code>client.loans.<a href="src/voltaria_sdk/loans/client.py">list_loan_review_requests</a>(...) -> PaginatedResponseLoanReviewRequestResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List loan review requests for your partner account, optionally filtered by loan ID or client ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.loans.list_loan_review_requests()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**loan_id:** `typing.Optional[str]` — Filter by loan ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_id:** `typing.Optional[str]` — Filter by client ID
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, loan_id, client_id, status. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loans.<a href="src/voltaria_sdk/loans/client.py">create_loan_review_request</a>(...) -> LoanReviewRequestResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Ask Voltaria to review a not-yet-disbursed (pending or pre-approved) loan before disbursement.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.loans.create_loan_review_request(
+    loan_id="loan_1234567890abcdef",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**loan_id:** `str` — The ID of the loan to be reviewed. Must be a not-yet-disbursed (pending or pre-approved) loan belonging to the current partner
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notes:** `typing.Optional[str]` — Optional note from the requester explaining the review request
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.loans.<a href="src/voltaria_sdk/loans/client.py">get_loan_review_request</a>(...) -> LoanReviewRequestResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a specific loan review request by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.loans.get_loan_review_request(
+    request_id="request_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.loans.<a href="src/voltaria_sdk/loans/client.py">list_loans</a>(...) -> PaginatedResponseLoanResponseWithClientInfo</code></summary>
 <dl>
 <dd>

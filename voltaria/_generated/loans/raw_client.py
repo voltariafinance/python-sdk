@@ -23,7 +23,9 @@ from ..types.bulk_loan_task_status import BulkLoanTaskStatus
 from ..types.currency_enum import CurrencyEnum
 from ..types.loan_installment_create_payload import LoanInstallmentCreatePayload
 from ..types.loan_response_with_installments import LoanResponseWithInstallments
+from ..types.loan_review_request_response import LoanReviewRequestResponse
 from ..types.paginated_response_loan_response_with_client_info import PaginatedResponseLoanResponseWithClientInfo
+from ..types.paginated_response_loan_review_request_response import PaginatedResponseLoanReviewRequestResponse
 from .types.loan_create_payload_amount import LoanCreatePayloadAmount
 from .types.loan_default_payload_sold_amount import LoanDefaultPayloadSoldAmount
 from pydantic import ValidationError
@@ -35,6 +37,244 @@ OMIT = typing.cast(typing.Any, ...)
 class RawLoansClient:
     def __init__(self, *, client_wrapper: SyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    def list_loan_review_requests(
+        self,
+        *,
+        loan_id: typing.Optional[str] = None,
+        client_id: typing.Optional[str] = None,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PaginatedResponseLoanReviewRequestResponse]:
+        """
+        List loan review requests for your partner account, optionally filtered by loan ID or client ID.
+
+        Parameters
+        ----------
+        loan_id : typing.Optional[str]
+            Filter by loan ID
+
+        client_id : typing.Optional[str]
+            Filter by client ID
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, loan_id, client_id, status. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PaginatedResponseLoanReviewRequestResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v2/loans/review-requests",
+            method="GET",
+            params={
+                "loan_id": loan_id,
+                "client_id": client_id,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "q": q,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedResponseLoanReviewRequestResponse,
+                    parse_obj_as(
+                        type_=PaginatedResponseLoanReviewRequestResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def create_loan_review_request(
+        self,
+        *,
+        loan_id: str,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[LoanReviewRequestResponse]:
+        """
+        Ask Voltaria to review a not-yet-disbursed (pending or pre-approved) loan before disbursement.
+
+        Parameters
+        ----------
+        loan_id : str
+            The ID of the loan to be reviewed. Must be a not-yet-disbursed (pending or pre-approved) loan belonging to the current partner
+
+        notes : typing.Optional[str]
+            Optional note from the requester explaining the review request
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[LoanReviewRequestResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v2/loans/review-requests",
+            method="POST",
+            json={
+                "loan_id": loan_id,
+                "notes": notes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LoanReviewRequestResponse,
+                    parse_obj_as(
+                        type_=LoanReviewRequestResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def get_loan_review_request(
+        self, request_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> HttpResponse[LoanReviewRequestResponse]:
+        """
+        Retrieve a specific loan review request by its ID.
+
+        Parameters
+        ----------
+        request_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[LoanReviewRequestResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/loans/review-requests/{encode_path_param(request_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LoanReviewRequestResponse,
+                    parse_obj_as(
+                        type_=LoanReviewRequestResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     def list_loans(
         self,
@@ -612,6 +852,244 @@ class RawLoansClient:
 class AsyncRawLoansClient:
     def __init__(self, *, client_wrapper: AsyncClientWrapper):
         self._client_wrapper = client_wrapper
+
+    async def list_loan_review_requests(
+        self,
+        *,
+        loan_id: typing.Optional[str] = None,
+        client_id: typing.Optional[str] = None,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PaginatedResponseLoanReviewRequestResponse]:
+        """
+        List loan review requests for your partner account, optionally filtered by loan ID or client ID.
+
+        Parameters
+        ----------
+        loan_id : typing.Optional[str]
+            Filter by loan ID
+
+        client_id : typing.Optional[str]
+            Filter by client ID
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, loan_id, client_id, status. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PaginatedResponseLoanReviewRequestResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v2/loans/review-requests",
+            method="GET",
+            params={
+                "loan_id": loan_id,
+                "client_id": client_id,
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "q": q,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedResponseLoanReviewRequestResponse,
+                    parse_obj_as(
+                        type_=PaginatedResponseLoanReviewRequestResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def create_loan_review_request(
+        self,
+        *,
+        loan_id: str,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[LoanReviewRequestResponse]:
+        """
+        Ask Voltaria to review a not-yet-disbursed (pending or pre-approved) loan before disbursement.
+
+        Parameters
+        ----------
+        loan_id : str
+            The ID of the loan to be reviewed. Must be a not-yet-disbursed (pending or pre-approved) loan belonging to the current partner
+
+        notes : typing.Optional[str]
+            Optional note from the requester explaining the review request
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[LoanReviewRequestResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v2/loans/review-requests",
+            method="POST",
+            json={
+                "loan_id": loan_id,
+                "notes": notes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LoanReviewRequestResponse,
+                    parse_obj_as(
+                        type_=LoanReviewRequestResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 409:
+                raise ConflictError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def get_loan_review_request(
+        self, request_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> AsyncHttpResponse[LoanReviewRequestResponse]:
+        """
+        Retrieve a specific loan review request by its ID.
+
+        Parameters
+        ----------
+        request_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[LoanReviewRequestResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/loans/review-requests/{encode_path_param(request_id)}",
+            method="GET",
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    LoanReviewRequestResponse,
+                    parse_obj_as(
+                        type_=LoanReviewRequestResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
     async def list_loans(
         self,

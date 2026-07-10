@@ -34,19 +34,19 @@ class WaterfallResponse(UniversalBaseModel):
     The status of the waterfall
     """
 
-    cash_balance: typing.Optional[str] = pydantic.Field(default=None)
+    amount: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The cash balance associated with the waterfall
-    """
-
-    cash_balance_currency: typing.Optional[str] = pydantic.Field(default=None)
-    """
-    The currency of the cash balance
+    The payment amount recorded for the waterfall
     """
 
-    cash_balance_date: typing.Optional[dt.date] = pydantic.Field(default=None)
+    currency: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The date of the cash balance
+    The currency of the payment
+    """
+
+    payment_date: typing.Optional[dt.date] = pydantic.Field(default=None)
+    """
+    The date the payment was made
     """
 
     file_url: typing.Optional[str] = pydantic.Field(default=None)

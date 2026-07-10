@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .limit_request_source_enum import LimitRequestSourceEnum
 from .limit_request_status_enum import LimitRequestStatusEnum
 
 
@@ -42,6 +43,11 @@ class LimitRequestResponse(UniversalBaseModel):
     waiver_id: typing.Optional[str] = pydantic.Field(default=None)
     """
     The ID of the waiver associated with this limit request
+    """
+
+    source: LimitRequestSourceEnum = pydantic.Field()
+    """
+    The origin of the request. 'partner' indicates the request was submitted by your account; 'internal' indicates it was initiated by Winyield on your behalf.
     """
 
     created_at: dt.datetime = pydantic.Field()

@@ -12,6 +12,7 @@ from .environment import VoltariaEnvironment
 if typing.TYPE_CHECKING:
     from .accounts.client import AccountsClient, AsyncAccountsClient
     from .clients.client import AsyncClientsClient, ClientsClient
+    from .collections.client import AsyncCollectionsClient, CollectionsClient
     from .documents.client import AsyncDocumentsClient, DocumentsClient
     from .drawdowns.client import AsyncDrawdownsClient, DrawdownsClient
     from .installments.client import AsyncInstallmentsClient, InstallmentsClient
@@ -102,6 +103,7 @@ class Voltaria:
         self._clients: typing.Optional[ClientsClient] = None
         self._sandbox: typing.Optional[SandboxClient] = None
         self._accounts: typing.Optional[AccountsClient] = None
+        self._collections: typing.Optional[CollectionsClient] = None
         self._documents: typing.Optional[DocumentsClient] = None
         self._investors: typing.Optional[InvestorsClient] = None
         self._installments: typing.Optional[InstallmentsClient] = None
@@ -134,6 +136,14 @@ class Voltaria:
 
             self._accounts = AccountsClient(client_wrapper=self._client_wrapper)
         return self._accounts
+
+    @property
+    def collections(self):
+        if self._collections is None:
+            from .collections.client import CollectionsClient  # noqa: E402
+
+            self._collections = CollectionsClient(client_wrapper=self._client_wrapper)
+        return self._collections
 
     @property
     def documents(self):
@@ -300,6 +310,7 @@ class AsyncVoltaria:
         self._clients: typing.Optional[AsyncClientsClient] = None
         self._sandbox: typing.Optional[AsyncSandboxClient] = None
         self._accounts: typing.Optional[AsyncAccountsClient] = None
+        self._collections: typing.Optional[AsyncCollectionsClient] = None
         self._documents: typing.Optional[AsyncDocumentsClient] = None
         self._investors: typing.Optional[AsyncInvestorsClient] = None
         self._installments: typing.Optional[AsyncInstallmentsClient] = None
@@ -332,6 +343,14 @@ class AsyncVoltaria:
 
             self._accounts = AsyncAccountsClient(client_wrapper=self._client_wrapper)
         return self._accounts
+
+    @property
+    def collections(self):
+        if self._collections is None:
+            from .collections.client import AsyncCollectionsClient  # noqa: E402
+
+            self._collections = AsyncCollectionsClient(client_wrapper=self._client_wrapper)
+        return self._collections
 
     @property
     def documents(self):

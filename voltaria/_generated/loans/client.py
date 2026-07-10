@@ -11,7 +11,9 @@ from ..types.bulk_loan_task_status import BulkLoanTaskStatus
 from ..types.currency_enum import CurrencyEnum
 from ..types.loan_installment_create_payload import LoanInstallmentCreatePayload
 from ..types.loan_response_with_installments import LoanResponseWithInstallments
+from ..types.loan_review_request_response import LoanReviewRequestResponse
 from ..types.paginated_response_loan_response_with_client_info import PaginatedResponseLoanResponseWithClientInfo
+from ..types.paginated_response_loan_review_request_response import PaginatedResponseLoanReviewRequestResponse
 from .raw_client import AsyncRawLoansClient, RawLoansClient
 from .types.loan_create_payload_amount import LoanCreatePayloadAmount
 from .types.loan_default_payload_sold_amount import LoanDefaultPayloadSoldAmount
@@ -34,6 +36,140 @@ class LoansClient:
         RawLoansClient
         """
         return self._raw_client
+
+    def list_loan_review_requests(
+        self,
+        *,
+        loan_id: typing.Optional[str] = None,
+        client_id: typing.Optional[str] = None,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedResponseLoanReviewRequestResponse:
+        """
+        List loan review requests for your partner account, optionally filtered by loan ID or client ID.
+
+        Parameters
+        ----------
+        loan_id : typing.Optional[str]
+            Filter by loan ID
+
+        client_id : typing.Optional[str]
+            Filter by client ID
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, loan_id, client_id, status. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedResponseLoanReviewRequestResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.loans.list_loan_review_requests()
+        """
+        _response = self._raw_client.list_loan_review_requests(
+            loan_id=loan_id,
+            client_id=client_id,
+            page=page,
+            page_size=page_size,
+            order_by=order_by,
+            q=q,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def create_loan_review_request(
+        self,
+        *,
+        loan_id: str,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> LoanReviewRequestResponse:
+        """
+        Ask Voltaria to review a not-yet-disbursed (pending or pre-approved) loan before disbursement.
+
+        Parameters
+        ----------
+        loan_id : str
+            The ID of the loan to be reviewed. Must be a not-yet-disbursed (pending or pre-approved) loan belonging to the current partner
+
+        notes : typing.Optional[str]
+            Optional note from the requester explaining the review request
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LoanReviewRequestResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.loans.create_loan_review_request(
+            loan_id="loan_1234567890abcdef",
+        )
+        """
+        _response = self._raw_client.create_loan_review_request(
+            loan_id=loan_id, notes=notes, request_options=request_options
+        )
+        return _response.data
+
+    def get_loan_review_request(
+        self, request_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LoanReviewRequestResponse:
+        """
+        Retrieve a specific loan review request by its ID.
+
+        Parameters
+        ----------
+        request_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LoanReviewRequestResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.loans.get_loan_review_request(
+            request_id="request_id",
+        )
+        """
+        _response = self._raw_client.get_loan_review_request(request_id, request_options=request_options)
+        return _response.data
 
     def list_loans(
         self,
@@ -391,6 +527,164 @@ class AsyncLoansClient:
         AsyncRawLoansClient
         """
         return self._raw_client
+
+    async def list_loan_review_requests(
+        self,
+        *,
+        loan_id: typing.Optional[str] = None,
+        client_id: typing.Optional[str] = None,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedResponseLoanReviewRequestResponse:
+        """
+        List loan review requests for your partner account, optionally filtered by loan ID or client ID.
+
+        Parameters
+        ----------
+        loan_id : typing.Optional[str]
+            Filter by loan ID
+
+        client_id : typing.Optional[str]
+            Filter by client ID
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, loan_id, client_id, status. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedResponseLoanReviewRequestResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.loans.list_loan_review_requests()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_loan_review_requests(
+            loan_id=loan_id,
+            client_id=client_id,
+            page=page,
+            page_size=page_size,
+            order_by=order_by,
+            q=q,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def create_loan_review_request(
+        self,
+        *,
+        loan_id: str,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> LoanReviewRequestResponse:
+        """
+        Ask Voltaria to review a not-yet-disbursed (pending or pre-approved) loan before disbursement.
+
+        Parameters
+        ----------
+        loan_id : str
+            The ID of the loan to be reviewed. Must be a not-yet-disbursed (pending or pre-approved) loan belonging to the current partner
+
+        notes : typing.Optional[str]
+            Optional note from the requester explaining the review request
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LoanReviewRequestResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.loans.create_loan_review_request(
+                loan_id="loan_1234567890abcdef",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_loan_review_request(
+            loan_id=loan_id, notes=notes, request_options=request_options
+        )
+        return _response.data
+
+    async def get_loan_review_request(
+        self, request_id: str, *, request_options: typing.Optional[RequestOptions] = None
+    ) -> LoanReviewRequestResponse:
+        """
+        Retrieve a specific loan review request by its ID.
+
+        Parameters
+        ----------
+        request_id : str
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        LoanReviewRequestResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.loans.get_loan_review_request(
+                request_id="request_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.get_loan_review_request(request_id, request_options=request_options)
+        return _response.data
 
     async def list_loans(
         self,

@@ -13,26 +13,89 @@ from .role_response import RoleResponse
 
 
 class ClientUserResponse(UniversalBaseModel):
-    id: str
-    partner_id: str
-    client_id: str
-    email: str
-    role_id: str
-    role: typing.Optional[RoleResponse] = None
-    status: ClientUserStatusEnum
-    is_email_verified: bool
-    kyc_status: KycStatusEnum
-    first_name: typing.Optional[str] = None
-    last_name: typing.Optional[str] = None
-    phone: typing.Optional[str] = None
+    id: str = pydantic.Field()
+    """
+    Unique client user identifier.
+    """
+
+    partner_id: str = pydantic.Field()
+    """
+    ID of the partner this user belongs to.
+    """
+
+    client_id: str = pydantic.Field()
+    """
+    ID of the client this user belongs to.
+    """
+
+    email: str = pydantic.Field()
+    """
+    Email address of the portal user.
+    """
+
+    role_id: str = pydantic.Field()
+    """
+    ID of the role assigned to the user.
+    """
+
+    role: typing.Optional[RoleResponse] = pydantic.Field(default=None)
+    """
+    Role assigned to the user.
+    """
+
+    status: ClientUserStatusEnum = pydantic.Field()
+    """
+    Account status. One of: `pending`, `active`, `inactive`.
+    """
+
+    is_email_verified: bool = pydantic.Field()
+    """
+    Whether the user has verified their email address.
+    """
+
+    kyc_status: KycStatusEnum = pydantic.Field()
+    """
+    KYC verification status of the user.
+    """
+
+    first_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    First name of the user.
+    """
+
+    last_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Last name of the user.
+    """
+
+    phone: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Phone number of the user.
+    """
+
     is2fa_enabled: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="is_2fa_enabled"), pydantic.Field(alias="is_2fa_enabled")
+        typing.Optional[bool],
+        FieldMetadata(alias="is_2fa_enabled"),
+        pydantic.Field(
+            alias="is_2fa_enabled", description="Whether two-factor authentication is enabled for this user."
+        ),
     ] = None
     is2fa_required: typing_extensions.Annotated[
-        typing.Optional[bool], FieldMetadata(alias="is_2fa_required"), pydantic.Field(alias="is_2fa_required")
+        typing.Optional[bool],
+        FieldMetadata(alias="is_2fa_required"),
+        pydantic.Field(
+            alias="is_2fa_required", description="Whether two-factor authentication is required for this user."
+        ),
     ] = None
-    created_at: dt.datetime
-    updated_at: dt.datetime
+    created_at: dt.datetime = pydantic.Field()
+    """
+    Timestamp when the user was created.
+    """
+
+    updated_at: dt.datetime = pydantic.Field()
+    """
+    Timestamp when the user was last updated.
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

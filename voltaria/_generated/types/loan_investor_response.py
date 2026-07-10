@@ -102,6 +102,16 @@ class LoanInvestorResponse(UniversalBaseModel):
     The client details associated with the loan
     """
 
+    outstanding_principal: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Remaining principal for installments with status active or overdue, net of any repayments already made
+    """
+
+    remaining_amount: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Remaining amount (principal and interest) for installments with status active or overdue, net of any repayments already made
+    """
+
     payment_to_the_client: typing.Optional[bool] = pydantic.Field(default=None)
     """
     Whether the loan disbursement is paid directly to the client (as opposed to the partner).
