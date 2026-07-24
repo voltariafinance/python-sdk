@@ -7,7 +7,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "voltaria-sdk"
-version = "2.36.0"
+version = "2.36.1"
 description = "Official Python SDK for the Voltaria API"
 requires-python = ">=3.9"
 dependencies = [
