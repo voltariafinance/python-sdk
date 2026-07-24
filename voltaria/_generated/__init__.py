@@ -81,6 +81,7 @@ if typing.TYPE_CHECKING:
         PaginatedResponseLoanResponseWithClientInfo,
         PaginatedResponseLoanReviewRequestResponse,
         PaginatedResponsePaymentPromiseResponse,
+        PaginatedResponseRecoveryResponse,
         PaginatedResponseRepaymentResponseWithClientInfo,
         PaginatedResponseWaiverResponse,
         PaginatedResponseWaterfallResponse,
@@ -89,6 +90,7 @@ if typing.TYPE_CHECKING:
         PartnerDataResponse,
         PaymentPromiseResponse,
         PaymentPromiseStatusEnum,
+        RecoveryResponse,
         RepaymentResponse,
         RepaymentResponseWithClientInfo,
         RoleResponse,
@@ -122,6 +124,7 @@ if typing.TYPE_CHECKING:
         investors,
         loans,
         partners,
+        recoveries,
         repayments,
         sandbox,
         webhooks,
@@ -135,6 +138,7 @@ if typing.TYPE_CHECKING:
     from .environment import VoltariaEnvironment
     from .installments import InstallmentEditPayloadAmount, PaymentPromiseCreatePayloadAmount
     from .loans import LoanCreatePayloadAmount, LoanDefaultPayloadSoldAmount
+    from .recoveries import RecoveryCreatePayloadAmount
     from .repayments import RepaymentCreatePayloadAmount
     from .sandbox import ClientUpdateSandboxLimit
 _dynamic_imports: typing.Dict[str, str] = {
@@ -227,6 +231,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedResponseLoanResponseWithClientInfo": ".types",
     "PaginatedResponseLoanReviewRequestResponse": ".types",
     "PaginatedResponsePaymentPromiseResponse": ".types",
+    "PaginatedResponseRecoveryResponse": ".types",
     "PaginatedResponseRepaymentResponseWithClientInfo": ".types",
     "PaginatedResponseWaiverResponse": ".types",
     "PaginatedResponseWaterfallResponse": ".types",
@@ -237,6 +242,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaymentPromiseCreatePayloadAmount": ".installments",
     "PaymentPromiseResponse": ".types",
     "PaymentPromiseStatusEnum": ".types",
+    "RecoveryCreatePayloadAmount": ".recoveries",
+    "RecoveryResponse": ".types",
     "RepaymentCreatePayloadAmount": ".repayments",
     "RepaymentResponse": ".types",
     "RepaymentResponseWithClientInfo": ".types",
@@ -264,6 +271,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "investors": ".investors",
     "loans": ".loans",
     "partners": ".partners",
+    "recoveries": ".recoveries",
     "repayments": ".repayments",
     "sandbox": ".sandbox",
     "webhooks": ".webhooks",
@@ -381,6 +389,7 @@ __all__ = [
     "PaginatedResponseLoanResponseWithClientInfo",
     "PaginatedResponseLoanReviewRequestResponse",
     "PaginatedResponsePaymentPromiseResponse",
+    "PaginatedResponseRecoveryResponse",
     "PaginatedResponseRepaymentResponseWithClientInfo",
     "PaginatedResponseWaiverResponse",
     "PaginatedResponseWaterfallResponse",
@@ -391,6 +400,8 @@ __all__ = [
     "PaymentPromiseCreatePayloadAmount",
     "PaymentPromiseResponse",
     "PaymentPromiseStatusEnum",
+    "RecoveryCreatePayloadAmount",
+    "RecoveryResponse",
     "RepaymentCreatePayloadAmount",
     "RepaymentResponse",
     "RepaymentResponseWithClientInfo",
@@ -418,6 +429,7 @@ __all__ = [
     "investors",
     "loans",
     "partners",
+    "recoveries",
     "repayments",
     "sandbox",
     "webhooks",

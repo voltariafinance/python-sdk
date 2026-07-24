@@ -19,6 +19,7 @@ if typing.TYPE_CHECKING:
     from .investors.client import AsyncInvestorsClient, InvestorsClient
     from .loans.client import AsyncLoansClient, LoansClient
     from .partners.client import AsyncPartnersClient, PartnersClient
+    from .recoveries.client import AsyncRecoveriesClient, RecoveriesClient
     from .repayments.client import AsyncRepaymentsClient, RepaymentsClient
     from .sandbox.client import AsyncSandboxClient, SandboxClient
     from .webhooks.client import AsyncWebhooksClient, WebhooksClient
@@ -109,6 +110,7 @@ class Voltaria:
         self._installments: typing.Optional[InstallmentsClient] = None
         self._loans: typing.Optional[LoansClient] = None
         self._partners: typing.Optional[PartnersClient] = None
+        self._recoveries: typing.Optional[RecoveriesClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
         self._repayments: typing.Optional[RepaymentsClient] = None
         self._drawdowns: typing.Optional[DrawdownsClient] = None
@@ -184,6 +186,14 @@ class Voltaria:
 
             self._partners = PartnersClient(client_wrapper=self._client_wrapper)
         return self._partners
+
+    @property
+    def recoveries(self):
+        if self._recoveries is None:
+            from .recoveries.client import RecoveriesClient  # noqa: E402
+
+            self._recoveries = RecoveriesClient(client_wrapper=self._client_wrapper)
+        return self._recoveries
 
     @property
     def webhooks(self):
@@ -316,6 +326,7 @@ class AsyncVoltaria:
         self._installments: typing.Optional[AsyncInstallmentsClient] = None
         self._loans: typing.Optional[AsyncLoansClient] = None
         self._partners: typing.Optional[AsyncPartnersClient] = None
+        self._recoveries: typing.Optional[AsyncRecoveriesClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
         self._repayments: typing.Optional[AsyncRepaymentsClient] = None
         self._drawdowns: typing.Optional[AsyncDrawdownsClient] = None
@@ -391,6 +402,14 @@ class AsyncVoltaria:
 
             self._partners = AsyncPartnersClient(client_wrapper=self._client_wrapper)
         return self._partners
+
+    @property
+    def recoveries(self):
+        if self._recoveries is None:
+            from .recoveries.client import AsyncRecoveriesClient  # noqa: E402
+
+            self._recoveries = AsyncRecoveriesClient(client_wrapper=self._client_wrapper)
+        return self._recoveries
 
     @property
     def webhooks(self):

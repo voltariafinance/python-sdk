@@ -82,6 +82,7 @@ if typing.TYPE_CHECKING:
     from .paginated_response_loan_response_with_client_info import PaginatedResponseLoanResponseWithClientInfo
     from .paginated_response_loan_review_request_response import PaginatedResponseLoanReviewRequestResponse
     from .paginated_response_payment_promise_response import PaginatedResponsePaymentPromiseResponse
+    from .paginated_response_recovery_response import PaginatedResponseRecoveryResponse
     from .paginated_response_repayment_response_with_client_info import PaginatedResponseRepaymentResponseWithClientInfo
     from .paginated_response_waiver_response import PaginatedResponseWaiverResponse
     from .paginated_response_waterfall_response import PaginatedResponseWaterfallResponse
@@ -90,6 +91,7 @@ if typing.TYPE_CHECKING:
     from .partner_data_response import PartnerDataResponse
     from .payment_promise_response import PaymentPromiseResponse
     from .payment_promise_status_enum import PaymentPromiseStatusEnum
+    from .recovery_response import RecoveryResponse
     from .repayment_response import RepaymentResponse
     from .repayment_response_with_client_info import RepaymentResponseWithClientInfo
     from .role_response import RoleResponse
@@ -179,6 +181,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedResponseLoanResponseWithClientInfo": ".paginated_response_loan_response_with_client_info",
     "PaginatedResponseLoanReviewRequestResponse": ".paginated_response_loan_review_request_response",
     "PaginatedResponsePaymentPromiseResponse": ".paginated_response_payment_promise_response",
+    "PaginatedResponseRecoveryResponse": ".paginated_response_recovery_response",
     "PaginatedResponseRepaymentResponseWithClientInfo": ".paginated_response_repayment_response_with_client_info",
     "PaginatedResponseWaiverResponse": ".paginated_response_waiver_response",
     "PaginatedResponseWaterfallResponse": ".paginated_response_waterfall_response",
@@ -187,6 +190,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PartnerDataResponse": ".partner_data_response",
     "PaymentPromiseResponse": ".payment_promise_response",
     "PaymentPromiseStatusEnum": ".payment_promise_status_enum",
+    "RecoveryResponse": ".recovery_response",
     "RepaymentResponse": ".repayment_response",
     "RepaymentResponseWithClientInfo": ".repayment_response_with_client_info",
     "RoleResponse": ".role_response",
@@ -300,6 +304,7 @@ __all__ = [
     "PaginatedResponseLoanResponseWithClientInfo",
     "PaginatedResponseLoanReviewRequestResponse",
     "PaginatedResponsePaymentPromiseResponse",
+    "PaginatedResponseRecoveryResponse",
     "PaginatedResponseRepaymentResponseWithClientInfo",
     "PaginatedResponseWaiverResponse",
     "PaginatedResponseWaterfallResponse",
@@ -308,6 +313,7 @@ __all__ = [
     "PartnerDataResponse",
     "PaymentPromiseResponse",
     "PaymentPromiseStatusEnum",
+    "RecoveryResponse",
     "RepaymentResponse",
     "RepaymentResponseWithClientInfo",
     "RoleResponse",
