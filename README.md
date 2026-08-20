@@ -15,7 +15,7 @@ key prefix, so you don't configure a base URL:
 ```python
 from voltaria import Voltaria
 
-client = Voltaria("live_...")        # production
+client = Voltaria("live_...")  # production
 # client = Voltaria("sandbox_...")   # sandbox
 
 loans = client.loans.list_loans()
