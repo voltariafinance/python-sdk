@@ -5,6 +5,7 @@ import typing
 
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
+from .currency_enum import CurrencyEnum
 from .waterfall_status_enum import WaterfallStatusEnum
 
 
@@ -39,7 +40,7 @@ class WaterfallResponse(UniversalBaseModel):
     The payment amount recorded for the waterfall
     """
 
-    currency: typing.Optional[str] = pydantic.Field(default=None)
+    currency: typing.Optional[CurrencyEnum] = pydantic.Field(default=None)
     """
     The currency of the payment
     """
