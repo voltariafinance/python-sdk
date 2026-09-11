@@ -45,6 +45,7 @@ if typing.TYPE_CHECKING:
     from .drawdown_checklist_response import DrawdownChecklistResponse
     from .drawdown_response import DrawdownResponse
     from .drawdown_status_enum import DrawdownStatusEnum
+    from .early_settlement_response import EarlySettlementResponse
     from .http_validation_error import HttpValidationError
     from .installment_response import InstallmentResponse
     from .installment_response_with_client_info import InstallmentResponseWithClientInfo
@@ -146,6 +147,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "DrawdownChecklistResponse": ".drawdown_checklist_response",
     "DrawdownResponse": ".drawdown_response",
     "DrawdownStatusEnum": ".drawdown_status_enum",
+    "EarlySettlementResponse": ".early_settlement_response",
     "HttpValidationError": ".http_validation_error",
     "InstallmentResponse": ".installment_response",
     "InstallmentResponseWithClientInfo": ".installment_response_with_client_info",
@@ -269,6 +271,7 @@ __all__ = [
     "DrawdownChecklistResponse",
     "DrawdownResponse",
     "DrawdownStatusEnum",
+    "EarlySettlementResponse",
     "HttpValidationError",
     "InstallmentResponse",
     "InstallmentResponseWithClientInfo",

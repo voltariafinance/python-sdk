@@ -9,6 +9,7 @@ from ..types.bulk_loan_item_payload import BulkLoanItemPayload
 from ..types.bulk_loan_task_response import BulkLoanTaskResponse
 from ..types.bulk_loan_task_status import BulkLoanTaskStatus
 from ..types.currency_enum import CurrencyEnum
+from ..types.early_settlement_response import EarlySettlementResponse
 from ..types.loan_installment_create_payload import LoanInstallmentCreatePayload
 from ..types.loan_response_with_installments import LoanResponseWithInstallments
 from ..types.loan_review_request_response import LoanReviewRequestResponse
@@ -363,6 +364,47 @@ class LoansClient:
         )
         """
         _response = self._raw_client.delete_loan(loan_id, request_options=request_options)
+        return _response.data
+
+    def calculate_settlement(
+        self,
+        loan_id: str,
+        *,
+        settlement_date: typing.Optional[dt.date] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> EarlySettlementResponse:
+        """
+        Calculate the indicative early settlement figure for a loan as of the given settlement date. The amount is indicative only, not a binding quote, and has no validity period — it changes as repayments are recorded and as the settlement date moves. Confirm the final amount with Voltaria before collecting from the borrower.
+
+        Parameters
+        ----------
+        loan_id : str
+
+        settlement_date : typing.Optional[dt.date]
+            Date the loan would be settled. Must be today or later. Defaults to today when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EarlySettlementResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.loans.calculate_settlement(
+            loan_id="loan_id",
+        )
+        """
+        _response = self._raw_client.calculate_settlement(
+            loan_id, settlement_date=settlement_date, request_options=request_options
+        )
         return _response.data
 
     def create_bulk_loans(
@@ -909,6 +951,55 @@ class AsyncLoansClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.delete_loan(loan_id, request_options=request_options)
+        return _response.data
+
+    async def calculate_settlement(
+        self,
+        loan_id: str,
+        *,
+        settlement_date: typing.Optional[dt.date] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> EarlySettlementResponse:
+        """
+        Calculate the indicative early settlement figure for a loan as of the given settlement date. The amount is indicative only, not a binding quote, and has no validity period — it changes as repayments are recorded and as the settlement date moves. Confirm the final amount with Voltaria before collecting from the borrower.
+
+        Parameters
+        ----------
+        loan_id : str
+
+        settlement_date : typing.Optional[dt.date]
+            Date the loan would be settled. Must be today or later. Defaults to today when omitted.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        EarlySettlementResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.loans.calculate_settlement(
+                loan_id="loan_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.calculate_settlement(
+            loan_id, settlement_date=settlement_date, request_options=request_options
+        )
         return _response.data
 
     async def create_bulk_loans(

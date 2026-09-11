@@ -9,14 +9,45 @@ from .currency_enum import CurrencyEnum
 
 
 class ClientLimitResponse(UniversalBaseModel):
-    currency: CurrencyEnum
-    max_maturity_days: int
-    limit: str
-    rate: str
-    outstanding: str
-    available: str
-    created_at: dt.datetime
-    updated_at: dt.datetime
+    currency: CurrencyEnum = pydantic.Field()
+    """
+    The currency the limit is denominated in
+    """
+
+    max_maturity_days: int = pydantic.Field()
+    """
+    The longest loan maturity this limit allows, in days
+    """
+
+    limit: str = pydantic.Field()
+    """
+    The credit limit granted to the client
+    """
+
+    rate: str = pydantic.Field()
+    """
+    The rate recorded on this limit
+    """
+
+    outstanding: str = pydantic.Field()
+    """
+    Principal currently outstanding against this limit
+    """
+
+    available: str = pydantic.Field()
+    """
+    Limit minus outstanding. Negative when the client is over limit
+    """
+
+    created_at: dt.datetime = pydantic.Field()
+    """
+    When the limit was granted
+    """
+
+    updated_at: dt.datetime = pydantic.Field()
+    """
+    When the limit was last changed
+    """
 
     if IS_PYDANTIC_V2:
         model_config: typing.ClassVar[pydantic.ConfigDict] = pydantic.ConfigDict(extra="allow", frozen=True)  # type: ignore # Pydantic v2

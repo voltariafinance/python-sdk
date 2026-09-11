@@ -4762,6 +4762,87 @@ client.loans.delete_loan(
 </dl>
 </details>
 
+<details><summary><code>client.loans.<a href="src/voltaria_sdk/loans/client.py">calculate_settlement</a>(...) -> EarlySettlementResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Calculate the indicative early settlement figure for a loan as of the given settlement date. The amount is indicative only, not a binding quote, and has no validity period — it changes as repayments are recorded and as the settlement date moves. Confirm the final amount with Voltaria before collecting from the borrower.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.loans.calculate_settlement(
+    loan_id="loan_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**loan_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**settlement_date:** `typing.Optional[datetime.date]` — Date the loan would be settled. Must be today or later. Defaults to today when omitted.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.loans.<a href="src/voltaria_sdk/loans/client.py">create_bulk_loans</a>(...) -> BulkLoanTaskResponse</code></summary>
 <dl>
 <dd>
