@@ -22,6 +22,7 @@ if typing.TYPE_CHECKING:
     from .recoveries.client import AsyncRecoveriesClient, RecoveriesClient
     from .repayments.client import AsyncRepaymentsClient, RepaymentsClient
     from .sandbox.client import AsyncSandboxClient, SandboxClient
+    from .tasks.client import AsyncTasksClient, TasksClient
     from .webhooks.client import AsyncWebhooksClient, WebhooksClient
 
 
@@ -113,6 +114,7 @@ class Voltaria:
         self._recoveries: typing.Optional[RecoveriesClient] = None
         self._webhooks: typing.Optional[WebhooksClient] = None
         self._repayments: typing.Optional[RepaymentsClient] = None
+        self._tasks: typing.Optional[TasksClient] = None
         self._drawdowns: typing.Optional[DrawdownsClient] = None
 
     @property
@@ -210,6 +212,14 @@ class Voltaria:
 
             self._repayments = RepaymentsClient(client_wrapper=self._client_wrapper)
         return self._repayments
+
+    @property
+    def tasks(self):
+        if self._tasks is None:
+            from .tasks.client import TasksClient  # noqa: E402
+
+            self._tasks = TasksClient(client_wrapper=self._client_wrapper)
+        return self._tasks
 
     @property
     def drawdowns(self):
@@ -329,6 +339,7 @@ class AsyncVoltaria:
         self._recoveries: typing.Optional[AsyncRecoveriesClient] = None
         self._webhooks: typing.Optional[AsyncWebhooksClient] = None
         self._repayments: typing.Optional[AsyncRepaymentsClient] = None
+        self._tasks: typing.Optional[AsyncTasksClient] = None
         self._drawdowns: typing.Optional[AsyncDrawdownsClient] = None
 
     @property
@@ -426,6 +437,14 @@ class AsyncVoltaria:
 
             self._repayments = AsyncRepaymentsClient(client_wrapper=self._client_wrapper)
         return self._repayments
+
+    @property
+    def tasks(self):
+        if self._tasks is None:
+            from .tasks.client import AsyncTasksClient  # noqa: E402
+
+            self._tasks = AsyncTasksClient(client_wrapper=self._client_wrapper)
+        return self._tasks
 
     @property
     def drawdowns(self):

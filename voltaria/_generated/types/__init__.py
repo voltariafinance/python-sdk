@@ -39,6 +39,7 @@ if typing.TYPE_CHECKING:
     from .collection_action_response import CollectionActionResponse
     from .collection_action_status_enum import CollectionActionStatusEnum
     from .collection_action_type_enum import CollectionActionTypeEnum
+    from .cop_status_enum import CopStatusEnum
     from .currency_enum import CurrencyEnum
     from .currency_field_spec import CurrencyFieldSpec
     from .document_response import DocumentResponse
@@ -65,6 +66,7 @@ if typing.TYPE_CHECKING:
     from .loan_review_request_response import LoanReviewRequestResponse
     from .loan_review_request_status_enum import LoanReviewRequestStatusEnum
     from .loan_status_enum import LoanStatusEnum
+    from .note_response import NoteResponse
     from .paginated_response_checklist_summary_partner_response import PaginatedResponseChecklistSummaryPartnerResponse
     from .paginated_response_client_account_response import PaginatedResponseClientAccountResponse
     from .paginated_response_client_investor_response import PaginatedResponseClientInvestorResponse
@@ -82,9 +84,14 @@ if typing.TYPE_CHECKING:
     from .paginated_response_loan_investor_response import PaginatedResponseLoanInvestorResponse
     from .paginated_response_loan_response_with_client_info import PaginatedResponseLoanResponseWithClientInfo
     from .paginated_response_loan_review_request_response import PaginatedResponseLoanReviewRequestResponse
+    from .paginated_response_note_response import PaginatedResponseNoteResponse
     from .paginated_response_payment_promise_response import PaginatedResponsePaymentPromiseResponse
     from .paginated_response_recovery_response import PaginatedResponseRecoveryResponse
     from .paginated_response_repayment_response_with_client_info import PaginatedResponseRepaymentResponseWithClientInfo
+    from .paginated_response_task_partner_response import PaginatedResponseTaskPartnerResponse
+    from .paginated_response_task_partner_status_history_response import (
+        PaginatedResponseTaskPartnerStatusHistoryResponse,
+    )
     from .paginated_response_waiver_response import PaginatedResponseWaiverResponse
     from .paginated_response_waterfall_response import PaginatedResponseWaterfallResponse
     from .paginated_response_webhook_log_response import PaginatedResponseWebhookLogResponse
@@ -96,6 +103,11 @@ if typing.TYPE_CHECKING:
     from .repayment_response import RepaymentResponse
     from .repayment_response_with_client_info import RepaymentResponseWithClientInfo
     from .role_response import RoleResponse
+    from .task_partner_response import TaskPartnerResponse
+    from .task_partner_status_history_response import TaskPartnerStatusHistoryResponse
+    from .task_priority_enum import TaskPriorityEnum
+    from .task_public_actor_type_enum import TaskPublicActorTypeEnum
+    from .task_status_enum import TaskStatusEnum
     from .validation_error import ValidationError
     from .validation_error_loc_item import ValidationErrorLocItem
     from .waiver_response import WaiverResponse
@@ -141,6 +153,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "CollectionActionResponse": ".collection_action_response",
     "CollectionActionStatusEnum": ".collection_action_status_enum",
     "CollectionActionTypeEnum": ".collection_action_type_enum",
+    "CopStatusEnum": ".cop_status_enum",
     "CurrencyEnum": ".currency_enum",
     "CurrencyFieldSpec": ".currency_field_spec",
     "DocumentResponse": ".document_response",
@@ -167,6 +180,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LoanReviewRequestResponse": ".loan_review_request_response",
     "LoanReviewRequestStatusEnum": ".loan_review_request_status_enum",
     "LoanStatusEnum": ".loan_status_enum",
+    "NoteResponse": ".note_response",
     "PaginatedResponseChecklistSummaryPartnerResponse": ".paginated_response_checklist_summary_partner_response",
     "PaginatedResponseClientAccountResponse": ".paginated_response_client_account_response",
     "PaginatedResponseClientInvestorResponse": ".paginated_response_client_investor_response",
@@ -182,9 +196,12 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedResponseLoanInvestorResponse": ".paginated_response_loan_investor_response",
     "PaginatedResponseLoanResponseWithClientInfo": ".paginated_response_loan_response_with_client_info",
     "PaginatedResponseLoanReviewRequestResponse": ".paginated_response_loan_review_request_response",
+    "PaginatedResponseNoteResponse": ".paginated_response_note_response",
     "PaginatedResponsePaymentPromiseResponse": ".paginated_response_payment_promise_response",
     "PaginatedResponseRecoveryResponse": ".paginated_response_recovery_response",
     "PaginatedResponseRepaymentResponseWithClientInfo": ".paginated_response_repayment_response_with_client_info",
+    "PaginatedResponseTaskPartnerResponse": ".paginated_response_task_partner_response",
+    "PaginatedResponseTaskPartnerStatusHistoryResponse": ".paginated_response_task_partner_status_history_response",
     "PaginatedResponseWaiverResponse": ".paginated_response_waiver_response",
     "PaginatedResponseWaterfallResponse": ".paginated_response_waterfall_response",
     "PaginatedResponseWebhookLogResponse": ".paginated_response_webhook_log_response",
@@ -196,6 +213,11 @@ _dynamic_imports: typing.Dict[str, str] = {
     "RepaymentResponse": ".repayment_response",
     "RepaymentResponseWithClientInfo": ".repayment_response_with_client_info",
     "RoleResponse": ".role_response",
+    "TaskPartnerResponse": ".task_partner_response",
+    "TaskPartnerStatusHistoryResponse": ".task_partner_status_history_response",
+    "TaskPriorityEnum": ".task_priority_enum",
+    "TaskPublicActorTypeEnum": ".task_public_actor_type_enum",
+    "TaskStatusEnum": ".task_status_enum",
     "ValidationError": ".validation_error",
     "ValidationErrorLocItem": ".validation_error_loc_item",
     "WaiverResponse": ".waiver_response",
@@ -265,6 +287,7 @@ __all__ = [
     "CollectionActionResponse",
     "CollectionActionStatusEnum",
     "CollectionActionTypeEnum",
+    "CopStatusEnum",
     "CurrencyEnum",
     "CurrencyFieldSpec",
     "DocumentResponse",
@@ -291,6 +314,7 @@ __all__ = [
     "LoanReviewRequestResponse",
     "LoanReviewRequestStatusEnum",
     "LoanStatusEnum",
+    "NoteResponse",
     "PaginatedResponseChecklistSummaryPartnerResponse",
     "PaginatedResponseClientAccountResponse",
     "PaginatedResponseClientInvestorResponse",
@@ -306,9 +330,12 @@ __all__ = [
     "PaginatedResponseLoanInvestorResponse",
     "PaginatedResponseLoanResponseWithClientInfo",
     "PaginatedResponseLoanReviewRequestResponse",
+    "PaginatedResponseNoteResponse",
     "PaginatedResponsePaymentPromiseResponse",
     "PaginatedResponseRecoveryResponse",
     "PaginatedResponseRepaymentResponseWithClientInfo",
+    "PaginatedResponseTaskPartnerResponse",
+    "PaginatedResponseTaskPartnerStatusHistoryResponse",
     "PaginatedResponseWaiverResponse",
     "PaginatedResponseWaterfallResponse",
     "PaginatedResponseWebhookLogResponse",
@@ -320,6 +347,11 @@ __all__ = [
     "RepaymentResponse",
     "RepaymentResponseWithClientInfo",
     "RoleResponse",
+    "TaskPartnerResponse",
+    "TaskPartnerStatusHistoryResponse",
+    "TaskPriorityEnum",
+    "TaskPublicActorTypeEnum",
+    "TaskStatusEnum",
     "ValidationError",
     "ValidationErrorLocItem",
     "WaiverResponse",

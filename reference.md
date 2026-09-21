@@ -6537,6 +6537,710 @@ client.repayments.get_bulk_repayment_status(
 </dl>
 </details>
 
+## Tasks
+<details><summary><code>client.tasks.<a href="src/voltaria_sdk/tasks/client.py">list_tasks</a>(...) -> PaginatedResponseTaskPartnerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of the tasks shared with your partner account, optionally filtered by status or by the client, loan, installment or waterfall they relate to.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.tasks.list_tasks()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**status:** `typing.Optional[TaskStatusEnum]` — Filter by task status.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_id:** `typing.Optional[str]` — Filter by client.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**loan_id:** `typing.Optional[str]` — Filter by loan.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**installment_id:** `typing.Optional[str]` — Filter by installment.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**waterfall_id:** `typing.Optional[str]` — Filter by waterfall.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'due_at:asc,created_at:desc'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, status, priority, due_at, created_at, client_id, loan_id, installment_id, waterfall_id. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tasks.<a href="src/voltaria_sdk/tasks/client.py">create_task</a>(...) -> TaskPartnerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Open a task for your partner account. Any entity you link to it must belong to you.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.tasks.create_task(
+    title="Send updated bank statement",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**title:** `str` — Short title of the task.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**description:** `typing.Optional[str]` — Optional longer description of what needs to be done.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**priority:** `typing.Optional[TaskPriorityEnum]` — Task priority. One of the following: low, medium, high, urgent
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**due_at:** `typing.Optional[datetime.datetime]` — Optional due date for the task.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_id:** `typing.Optional[str]` — Client this task relates to. Must belong to your partner account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**loan_id:** `typing.Optional[str]` — Loan this task relates to. Must belong to your partner account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**installment_id:** `typing.Optional[str]` — Installment this task relates to. Must belong to your partner account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**waterfall_id:** `typing.Optional[str]` — Waterfall this task relates to. Must belong to your partner account.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tasks.<a href="src/voltaria_sdk/tasks/client.py">get_task</a>(...) -> TaskPartnerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve one of your tasks by its ID.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.tasks.get_task(
+    task_id="task_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**task_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tasks.<a href="src/voltaria_sdk/tasks/client.py">update_task_status</a>(...) -> TaskPartnerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Move one of your tasks to another status. Status is the only field you can change. Requires a signed-in user — API keys cannot change a task.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.tasks.update_task_status(
+    task_id="task_id",
+    status="active",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**task_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**status:** `TaskPartnerStatusUpdatePayloadStatus` — The new status of the task. One of the following: active, in_progress, blocked, done. You can move a task to any of these at any time, so one closed by mistake can be reopened. Every change is kept in the task's status history.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tasks.<a href="src/voltaria_sdk/tasks/client.py">list_task_status_history</a>(...) -> PaginatedResponseTaskPartnerStatusHistoryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The status transitions of one of your tasks, and whether each one was made by your team or by Voltaria support.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.tasks.list_task_status_history(
+    task_id="task_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**task_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'created_at:asc'. Defaults to 'created_at:desc'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tasks.<a href="src/voltaria_sdk/tasks/client.py">list_task_notes</a>(...) -> PaginatedResponseNoteResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Notes exchanged with Voltaria on one of your tasks.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.tasks.list_task_notes(
+    task_id="task_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**task_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'created_at:desc'. Defaults to 'created_at:desc'.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, loan_id, installment_id, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tasks.<a href="src/voltaria_sdk/tasks/client.py">create_task_note</a>(...) -> NoteResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a note to one of your tasks. Requires a signed-in user — API keys cannot write notes, because a note needs an author.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.tasks.create_task_note(
+    task_id="task_id",
+    content="Statement uploaded, please re-check.",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**task_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**content:** `str` — The note content.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Drawdowns
 <details><summary><code>client.drawdowns.<a href="src/voltaria_sdk/drawdowns/client.py">list_drawdowns</a>(...) -> PaginatedResponseDrawdownResponse</code></summary>
 <dl>

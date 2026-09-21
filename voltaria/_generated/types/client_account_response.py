@@ -8,6 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .account_address import AccountAddress
 from .account_holder_type_enum import AccountHolderTypeEnum
 from .account_status_enum import AccountStatusEnum
+from .cop_status_enum import CopStatusEnum
 from .currency_enum import CurrencyEnum
 
 
@@ -75,6 +76,11 @@ class ClientAccountResponse(UniversalBaseModel):
     status: AccountStatusEnum = pydantic.Field()
     """
     Account status. One of: `pending`, `active`, `passive`.
+    """
+
+    cop_status: typing.Optional[CopStatusEnum] = pydantic.Field(default=None)
+    """
+    Confirmation of Payee result for this account. `null` when the account has never been checked, or when the check does not apply to it. One of: `matched`, `close_match`, `not_matched`, `account_not_found`, `unavailable`.
     """
 
     created_at: dt.datetime = pydantic.Field()
