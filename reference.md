@@ -2595,6 +2595,14 @@ client.documents.upload_document(
 <dl>
 <dd>
 
+**task_id:** `typing.Optional[str]` — The task this document answers, if any.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
     
 </dd>

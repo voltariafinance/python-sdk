@@ -2,4 +2,6 @@
 
 import typing
 
-TaskStatusEnum = typing.Union[typing.Literal["active", "in_progress", "blocked", "done", "cancelled"], typing.Any]
+TaskStatusEnum = typing.Union[
+    typing.Literal["active", "in_progress", "blocked", "review_needed", "done", "cancelled"], typing.Any
+]

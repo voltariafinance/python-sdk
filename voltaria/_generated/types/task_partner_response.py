@@ -31,7 +31,7 @@ class TaskPartnerResponse(UniversalBaseModel):
 
     status: TaskStatusEnum = pydantic.Field()
     """
-    The status of the task. One of the following: active, in_progress, blocked, done, cancelled
+    The status of the task. One of the following: active, in_progress, blocked, review_needed, done, cancelled
     """
 
     priority: typing.Optional[TaskPriorityEnum] = pydantic.Field(default=None)

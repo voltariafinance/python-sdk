@@ -136,6 +136,7 @@ class RawDocumentsClient:
         loan_id: typing.Optional[str] = None,
         installment_id: typing.Optional[str] = None,
         waterfall_id: typing.Optional[str] = None,
+        task_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[DocumentResponse]:
         """
@@ -160,6 +161,9 @@ class RawDocumentsClient:
 
         waterfall_id : typing.Optional[str]
 
+        task_id : typing.Optional[str]
+            The task this document answers, if any.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -176,6 +180,7 @@ class RawDocumentsClient:
                 "loan_id": loan_id,
                 "installment_id": installment_id,
                 "waterfall_id": waterfall_id,
+                "task_id": task_id,
             },
             data={
                 "category": category,
@@ -515,6 +520,7 @@ class AsyncRawDocumentsClient:
         loan_id: typing.Optional[str] = None,
         installment_id: typing.Optional[str] = None,
         waterfall_id: typing.Optional[str] = None,
+        task_id: typing.Optional[str] = None,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[DocumentResponse]:
         """
@@ -539,6 +545,9 @@ class AsyncRawDocumentsClient:
 
         waterfall_id : typing.Optional[str]
 
+        task_id : typing.Optional[str]
+            The task this document answers, if any.
+
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
 
@@ -555,6 +564,7 @@ class AsyncRawDocumentsClient:
                 "loan_id": loan_id,
                 "installment_id": installment_id,
                 "waterfall_id": waterfall_id,
+                "task_id": task_id,
             },
             data={
                 "category": category,
