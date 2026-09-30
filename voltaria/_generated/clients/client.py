@@ -13,6 +13,7 @@ from ..types.limit_request_response import LimitRequestResponse
 from ..types.paginated_response_checklist_summary_partner_response import (
     PaginatedResponseChecklistSummaryPartnerResponse,
 )
+from ..types.paginated_response_client_limit_history_response import PaginatedResponseClientLimitHistoryResponse
 from ..types.paginated_response_client_response import PaginatedResponseClientResponse
 from ..types.paginated_response_client_user_response import PaginatedResponseClientUserResponse
 from ..types.paginated_response_limit_request_response import PaginatedResponseLimitRequestResponse
@@ -588,6 +589,57 @@ class ClientsClient:
         )
         """
         _response = self._raw_client.list_client_waivers(
+            client_id, page=page, page_size=page_size, order_by=order_by, q=q, request_options=request_options
+        )
+        return _response.data
+
+    def list_client_limits(
+        self,
+        client_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedResponseClientLimitHistoryResponse:
+        """
+        Retrieve every credit limit granted to a specific client.
+
+        Parameters
+        ----------
+        client_id : str
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, currency, created_at, limit. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedResponseClientLimitHistoryResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.clients.list_client_limits(
+            client_id="client_id",
+        )
+        """
+        _response = self._raw_client.list_client_limits(
             client_id, page=page, page_size=page_size, order_by=order_by, q=q, request_options=request_options
         )
         return _response.data
@@ -1362,6 +1414,65 @@ class AsyncClientsClient:
         asyncio.run(main())
         """
         _response = await self._raw_client.list_client_waivers(
+            client_id, page=page, page_size=page_size, order_by=order_by, q=q, request_options=request_options
+        )
+        return _response.data
+
+    async def list_client_limits(
+        self,
+        client_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedResponseClientLimitHistoryResponse:
+        """
+        Retrieve every credit limit granted to a specific client.
+
+        Parameters
+        ----------
+        client_id : str
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, currency, created_at, limit. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedResponseClientLimitHistoryResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.clients.list_client_limits(
+                client_id="client_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_client_limits(
             client_id, page=page, page_size=page_size, order_by=order_by, q=q, request_options=request_options
         )
         return _response.data

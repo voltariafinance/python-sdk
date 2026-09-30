@@ -1121,6 +1121,111 @@ client.clients.list_client_waivers(
 </dl>
 </details>
 
+<details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">list_client_limits</a>(...) -> PaginatedResponseClientLimitHistoryResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve every credit limit granted to a specific client.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.clients.list_client_limits(
+    client_id="client_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'created_at:desc'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, currency, created_at, limit. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">get_client_by_id</a>(...) -> ClientResponse</code></summary>
 <dl>
 <dd>

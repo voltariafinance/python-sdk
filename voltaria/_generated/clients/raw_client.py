@@ -23,6 +23,7 @@ from ..types.limit_request_response import LimitRequestResponse
 from ..types.paginated_response_checklist_summary_partner_response import (
     PaginatedResponseChecklistSummaryPartnerResponse,
 )
+from ..types.paginated_response_client_limit_history_response import PaginatedResponseClientLimitHistoryResponse
 from ..types.paginated_response_client_response import PaginatedResponseClientResponse
 from ..types.paginated_response_client_user_response import PaginatedResponseClientUserResponse
 from ..types.paginated_response_limit_request_response import PaginatedResponseLimitRequestResponse
@@ -857,6 +858,93 @@ class RawClientsClient:
                     PaginatedResponseWaiverResponse,
                     parse_obj_as(
                         type_=PaginatedResponseWaiverResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_client_limits(
+        self,
+        client_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PaginatedResponseClientLimitHistoryResponse]:
+        """
+        Retrieve every credit limit granted to a specific client.
+
+        Parameters
+        ----------
+        client_id : str
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, currency, created_at, limit. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PaginatedResponseClientLimitHistoryResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/clients/{encode_path_param(client_id)}/limits",
+            method="GET",
+            params={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "q": q,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedResponseClientLimitHistoryResponse,
+                    parse_obj_as(
+                        type_=PaginatedResponseClientLimitHistoryResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )
@@ -1934,6 +2022,93 @@ class AsyncRawClientsClient:
                     PaginatedResponseWaiverResponse,
                     parse_obj_as(
                         type_=PaginatedResponseWaiverResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_client_limits(
+        self,
+        client_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PaginatedResponseClientLimitHistoryResponse]:
+        """
+        Retrieve every credit limit granted to a specific client.
+
+        Parameters
+        ----------
+        client_id : str
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, currency, created_at, limit. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PaginatedResponseClientLimitHistoryResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/clients/{encode_path_param(client_id)}/limits",
+            method="GET",
+            params={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "q": q,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedResponseClientLimitHistoryResponse,
+                    parse_obj_as(
+                        type_=PaginatedResponseClientLimitHistoryResponse,  # type: ignore
                         object_=_response.json(),
                     ),
                 )

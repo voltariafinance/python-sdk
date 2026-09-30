@@ -29,6 +29,7 @@ if typing.TYPE_CHECKING:
     from .client_base_info import ClientBaseInfo
     from .client_data_response import ClientDataResponse
     from .client_investor_response import ClientInvestorResponse
+    from .client_limit_history_response import ClientLimitHistoryResponse
     from .client_limit_response import ClientLimitResponse
     from .client_response import ClientResponse
     from .client_status_enum import ClientStatusEnum
@@ -70,6 +71,7 @@ if typing.TYPE_CHECKING:
     from .paginated_response_checklist_summary_partner_response import PaginatedResponseChecklistSummaryPartnerResponse
     from .paginated_response_client_account_response import PaginatedResponseClientAccountResponse
     from .paginated_response_client_investor_response import PaginatedResponseClientInvestorResponse
+    from .paginated_response_client_limit_history_response import PaginatedResponseClientLimitHistoryResponse
     from .paginated_response_client_response import PaginatedResponseClientResponse
     from .paginated_response_client_user_response import PaginatedResponseClientUserResponse
     from .paginated_response_collection_action_log_response import PaginatedResponseCollectionActionLogResponse
@@ -143,6 +145,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ClientBaseInfo": ".client_base_info",
     "ClientDataResponse": ".client_data_response",
     "ClientInvestorResponse": ".client_investor_response",
+    "ClientLimitHistoryResponse": ".client_limit_history_response",
     "ClientLimitResponse": ".client_limit_response",
     "ClientResponse": ".client_response",
     "ClientStatusEnum": ".client_status_enum",
@@ -184,6 +187,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "PaginatedResponseChecklistSummaryPartnerResponse": ".paginated_response_checklist_summary_partner_response",
     "PaginatedResponseClientAccountResponse": ".paginated_response_client_account_response",
     "PaginatedResponseClientInvestorResponse": ".paginated_response_client_investor_response",
+    "PaginatedResponseClientLimitHistoryResponse": ".paginated_response_client_limit_history_response",
     "PaginatedResponseClientResponse": ".paginated_response_client_response",
     "PaginatedResponseClientUserResponse": ".paginated_response_client_user_response",
     "PaginatedResponseCollectionActionLogResponse": ".paginated_response_collection_action_log_response",
@@ -277,6 +281,7 @@ __all__ = [
     "ClientBaseInfo",
     "ClientDataResponse",
     "ClientInvestorResponse",
+    "ClientLimitHistoryResponse",
     "ClientLimitResponse",
     "ClientResponse",
     "ClientStatusEnum",
@@ -318,6 +323,7 @@ __all__ = [
     "PaginatedResponseChecklistSummaryPartnerResponse",
     "PaginatedResponseClientAccountResponse",
     "PaginatedResponseClientInvestorResponse",
+    "PaginatedResponseClientLimitHistoryResponse",
     "PaginatedResponseClientResponse",
     "PaginatedResponseClientUserResponse",
     "PaginatedResponseCollectionActionLogResponse",
