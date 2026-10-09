@@ -8,6 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .client_base_info import ClientBaseInfo
 from .currency_enum import CurrencyEnum
 from .loan_payment_status_enum import LoanPaymentStatusEnum
+from .loan_repayment_method_enum import LoanRepaymentMethodEnum
 from .loan_status_enum import LoanStatusEnum
 
 
@@ -90,6 +91,11 @@ class LoanInvestorResponse(UniversalBaseModel):
     early_settlement_amount: typing.Optional[str] = pydantic.Field(default=None)
     """
     The settlement amount at early settlement if applicable
+    """
+
+    repayment_method: LoanRepaymentMethodEnum = pydantic.Field()
+    """
+    How each installment is split into principal and interest
     """
 
     data: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)

@@ -8,6 +8,7 @@ from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .bulk_loan_item_payload_amount import BulkLoanItemPayloadAmount
 from .currency_enum import CurrencyEnum
 from .loan_installment_create_payload import LoanInstallmentCreatePayload
+from .loan_repayment_method_enum import LoanRepaymentMethodEnum
 
 
 class BulkLoanItemPayload(UniversalBaseModel):
@@ -39,6 +40,11 @@ class BulkLoanItemPayload(UniversalBaseModel):
     installments: typing.List[LoanInstallmentCreatePayload] = pydantic.Field()
     """
     List of installments for the loan, each with a due date and amount
+    """
+
+    repayment_method: typing.Optional[LoanRepaymentMethodEnum] = pydantic.Field(default=None)
+    """
+    How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
     """
 
     data: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)

@@ -1612,7 +1612,7 @@ client.sandbox.update_loan(
 <dl>
 <dd>
 
-**status:** `typing.Optional[LoanStatusEnum]` — The status of the client. One of the following: `pending, overdue, active, default, sold, restructured, repaid, pre_approved, rejected, deleted, inactive`
+**status:** `typing.Optional[LoanStatusEnum]` — The status of the loan. One of the following: `pending, overdue, active, default, sold, restructured, repaid, pre_approved, rejected, inactive`. Use the delete loan endpoint to delete a loan.
     
 </dd>
 </dl>
@@ -1685,7 +1685,7 @@ client.sandbox.webhook_test(
 <dl>
 <dd>
 
-**event_type:** `WebhookEventTypeEnum` — Event type to trigger for the test. All subscriptions for this event type will be triggered if webhook_id is not provided.Possible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+**event_type:** `WebhookEventTypeEnum` — Event type to trigger for the test. All subscriptions for this event type will be triggered if webhook_id is not provided.Possible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
     
 </dd>
 </dl>
@@ -4709,6 +4709,14 @@ client.loans.create_loan(
 <dl>
 <dd>
 
+**repayment_method:** `typing.Optional[LoanRepaymentMethodEnum]` — How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **data:** `typing.Optional[typing.Dict[str, typing.Any]]` — Additional data related to the loan
     
 </dd>
@@ -5827,7 +5835,7 @@ client.webhooks.create_webhook_subscription(
 <dl>
 <dd>
 
-**event_type:** `WebhookEventTypeEnum` — Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+**event_type:** `WebhookEventTypeEnum` — Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
     
 </dd>
 </dl>
@@ -6035,7 +6043,7 @@ client.webhooks.update_webhook_subscription(
 <dl>
 <dd>
 
-**event_type:** `typing.Optional[WebhookEventTypeEnum]` — Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+**event_type:** `typing.Optional[WebhookEventTypeEnum]` — Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
     
 </dd>
 </dl>

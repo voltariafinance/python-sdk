@@ -91,7 +91,7 @@ class SandboxClient:
         loan_id : str
 
         status : typing.Optional[LoanStatusEnum]
-            The status of the client. One of the following: `pending, overdue, active, default, sold, restructured, repaid, pre_approved, rejected, deleted, inactive`
+            The status of the loan. One of the following: `pending, overdue, active, default, sold, restructured, repaid, pre_approved, rejected, inactive`. Use the delete loan endpoint to delete a loan.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -128,7 +128,7 @@ class SandboxClient:
         Parameters
         ----------
         event_type : WebhookEventTypeEnum
-            Event type to trigger for the test. All subscriptions for this event type will be triggered if webhook_id is not provided.Possible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+            Event type to trigger for the test. All subscriptions for this event type will be triggered if webhook_id is not provided.Possible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
 
         webhook_id : typing.Optional[str]
             The ID of the webhook subscription. Only this webhook will be triggered if provided.
@@ -241,7 +241,7 @@ class AsyncSandboxClient:
         loan_id : str
 
         status : typing.Optional[LoanStatusEnum]
-            The status of the client. One of the following: `pending, overdue, active, default, sold, restructured, repaid, pre_approved, rejected, deleted, inactive`
+            The status of the loan. One of the following: `pending, overdue, active, default, sold, restructured, repaid, pre_approved, rejected, inactive`. Use the delete loan endpoint to delete a loan.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -286,7 +286,7 @@ class AsyncSandboxClient:
         Parameters
         ----------
         event_type : WebhookEventTypeEnum
-            Event type to trigger for the test. All subscriptions for this event type will be triggered if webhook_id is not provided.Possible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+            Event type to trigger for the test. All subscriptions for this event type will be triggered if webhook_id is not provided.Possible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
 
         webhook_id : typing.Optional[str]
             The ID of the webhook subscription. Only this webhook will be triggered if provided.

@@ -27,7 +27,7 @@ class WebhookSubscriptionResponse(UniversalBaseModel):
 
     event_type: WebhookEventTypeEnum = pydantic.Field()
     """
-    Event type subscribed toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+    Event type subscribed toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
     """
 
     status: WebhookStatusEnum = pydantic.Field()

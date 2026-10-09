@@ -62,6 +62,7 @@ if typing.TYPE_CHECKING:
     from .loan_installment_response import LoanInstallmentResponse
     from .loan_investor_response import LoanInvestorResponse
     from .loan_payment_status_enum import LoanPaymentStatusEnum
+    from .loan_repayment_method_enum import LoanRepaymentMethodEnum
     from .loan_response_with_client_info import LoanResponseWithClientInfo
     from .loan_response_with_installments import LoanResponseWithInstallments
     from .loan_review_request_response import LoanReviewRequestResponse
@@ -178,6 +179,7 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LoanInstallmentResponse": ".loan_installment_response",
     "LoanInvestorResponse": ".loan_investor_response",
     "LoanPaymentStatusEnum": ".loan_payment_status_enum",
+    "LoanRepaymentMethodEnum": ".loan_repayment_method_enum",
     "LoanResponseWithClientInfo": ".loan_response_with_client_info",
     "LoanResponseWithInstallments": ".loan_response_with_installments",
     "LoanReviewRequestResponse": ".loan_review_request_response",
@@ -314,6 +316,7 @@ __all__ = [
     "LoanInstallmentResponse",
     "LoanInvestorResponse",
     "LoanPaymentStatusEnum",
+    "LoanRepaymentMethodEnum",
     "LoanResponseWithClientInfo",
     "LoanResponseWithInstallments",
     "LoanReviewRequestResponse",

@@ -4,7 +4,12 @@ import typing
 
 WebhookEventTypeEnum = typing.Union[
     typing.Literal[
-        "loan.updated", "installment.updated", "client.updated", "client.limit.updated", "partner.limit.updated"
+        "loan.updated",
+        "installment.updated",
+        "client.updated",
+        "client.limit.updated",
+        "partner.limit.updated",
+        "bank_connection.updated",
     ],
     typing.Any,
 ]

@@ -114,7 +114,7 @@ class RawWebhooksClient:
             The URL to send webhooks to
 
         event_type : WebhookEventTypeEnum
-            Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+            Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
 
         secret : str
             Secret for signing webhook payloads
@@ -273,7 +273,7 @@ class RawWebhooksClient:
             Description of this webhook endpoint
 
         event_type : typing.Optional[WebhookEventTypeEnum]
-            Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+            Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
 
         status : typing.Optional[WebhookStatusEnum]
             Status of the webhook subscriptionPossible values: active, paused, disabled
@@ -573,7 +573,7 @@ class AsyncRawWebhooksClient:
             The URL to send webhooks to
 
         event_type : WebhookEventTypeEnum
-            Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+            Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
 
         secret : str
             Secret for signing webhook payloads
@@ -732,7 +732,7 @@ class AsyncRawWebhooksClient:
             Description of this webhook endpoint
 
         event_type : typing.Optional[WebhookEventTypeEnum]
-            Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated
+            Event type to subscribe toPossible values: loan_updated, installment_updated, client_updated, client_limit_updated, partner_limit_updated, bank_connection_updated
 
         status : typing.Optional[WebhookStatusEnum]
             Status of the webhook subscriptionPossible values: active, paused, disabled

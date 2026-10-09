@@ -11,6 +11,7 @@ from ..types.bulk_loan_task_status import BulkLoanTaskStatus
 from ..types.currency_enum import CurrencyEnum
 from ..types.early_settlement_response import EarlySettlementResponse
 from ..types.loan_installment_create_payload import LoanInstallmentCreatePayload
+from ..types.loan_repayment_method_enum import LoanRepaymentMethodEnum
 from ..types.loan_response_with_installments import LoanResponseWithInstallments
 from ..types.loan_review_request_response import LoanReviewRequestResponse
 from ..types.paginated_response_loan_response_with_client_info import PaginatedResponseLoanResponseWithClientInfo
@@ -230,6 +231,7 @@ class LoansClient:
         installments: typing.Sequence[LoanInstallmentCreatePayload],
         correlation_id: typing.Optional[str] = OMIT,
         loan_date: typing.Optional[dt.date] = OMIT,
+        repayment_method: typing.Optional[LoanRepaymentMethodEnum] = OMIT,
         data: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LoanResponseWithInstallments:
@@ -255,6 +257,9 @@ class LoansClient:
 
         loan_date : typing.Optional[dt.date]
             Please provide the loan_date if it differs from the loan creation time (created_at). Otherwise, it will be automatically set.
+
+        repayment_method : typing.Optional[LoanRepaymentMethodEnum]
+            How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
 
         data : typing.Optional[typing.Dict[str, typing.Any]]
             Additional data related to the loan
@@ -297,6 +302,7 @@ class LoansClient:
             installments=installments,
             correlation_id=correlation_id,
             loan_date=loan_date,
+            repayment_method=repayment_method,
             data=data,
             request_options=request_options,
         )
@@ -794,6 +800,7 @@ class AsyncLoansClient:
         installments: typing.Sequence[LoanInstallmentCreatePayload],
         correlation_id: typing.Optional[str] = OMIT,
         loan_date: typing.Optional[dt.date] = OMIT,
+        repayment_method: typing.Optional[LoanRepaymentMethodEnum] = OMIT,
         data: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LoanResponseWithInstallments:
@@ -819,6 +826,9 @@ class AsyncLoansClient:
 
         loan_date : typing.Optional[dt.date]
             Please provide the loan_date if it differs from the loan creation time (created_at). Otherwise, it will be automatically set.
+
+        repayment_method : typing.Optional[LoanRepaymentMethodEnum]
+            How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
 
         data : typing.Optional[typing.Dict[str, typing.Any]]
             Additional data related to the loan
@@ -868,6 +878,7 @@ class AsyncLoansClient:
             installments=installments,
             correlation_id=correlation_id,
             loan_date=loan_date,
+            repayment_method=repayment_method,
             data=data,
             request_options=request_options,
         )
