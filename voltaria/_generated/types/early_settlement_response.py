@@ -23,9 +23,9 @@ class EarlySettlementResponse(UniversalBaseModel):
     The settlement amount at early settlement
     """
 
-    settlement_irr: str = pydantic.Field()
+    settlement_irr: typing.Optional[str] = pydantic.Field(default=None)
     """
-    The internal rate of return at early settlement
+    The internal rate of return at early settlement; null when it is more than 3 times the loan's IRR, e.g. a minimum fee paid within days
     """
 
     original_irr: typing.Optional[str] = pydantic.Field(default=None)

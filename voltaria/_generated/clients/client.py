@@ -4,6 +4,7 @@ import typing
 
 from ..core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from ..core.request_options import RequestOptions
+from ..types.client_counterparty_response import ClientCounterpartyResponse
 from ..types.client_data_response import ClientDataResponse
 from ..types.client_response import ClientResponse
 from ..types.client_type_enum import ClientTypeEnum
@@ -12,6 +13,10 @@ from ..types.jurisdiction_enum import JurisdictionEnum
 from ..types.limit_request_response import LimitRequestResponse
 from ..types.paginated_response_checklist_summary_partner_response import (
     PaginatedResponseChecklistSummaryPartnerResponse,
+)
+from ..types.paginated_response_client_counterparty_response import PaginatedResponseClientCounterpartyResponse
+from ..types.paginated_response_client_counterparty_with_client_response import (
+    PaginatedResponseClientCounterpartyWithClientResponse,
 )
 from ..types.paginated_response_client_limit_history_response import PaginatedResponseClientLimitHistoryResponse
 from ..types.paginated_response_client_response import PaginatedResponseClientResponse
@@ -644,6 +649,179 @@ class ClientsClient:
         )
         return _response.data
 
+    def list_client_counterparties(
+        self,
+        client_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedResponseClientCounterpartyResponse:
+        """
+        Retrieve the counterparties of a specific client, e.g. its debtors or installers.
+
+        Parameters
+        ----------
+        client_id : str
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedResponseClientCounterpartyResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.clients.list_client_counterparties(
+            client_id="client_id",
+        )
+        """
+        _response = self._raw_client.list_client_counterparties(
+            client_id, page=page, page_size=page_size, order_by=order_by, q=q, request_options=request_options
+        )
+        return _response.data
+
+    def create_client_counterparty(
+        self,
+        client_id: str,
+        *,
+        name: str,
+        country: typing.Optional[str] = OMIT,
+        company_number: typing.Optional[str] = OMIT,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientCounterpartyResponse:
+        """
+        Add a counterparty to a specific client. It starts with your default counterparty status.
+
+        Parameters
+        ----------
+        client_id : str
+
+        name : str
+            The counterparty's legal or trading name
+
+        country : typing.Optional[str]
+            ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+
+        company_number : typing.Optional[str]
+            The counterparty's company registration number
+
+        notes : typing.Optional[str]
+            Free-text notes about the counterparty
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientCounterpartyResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.clients.create_client_counterparty(
+            client_id="client_id",
+            name="Acme Installations Ltd",
+        )
+        """
+        _response = self._raw_client.create_client_counterparty(
+            client_id,
+            name=name,
+            country=country,
+            company_number=company_number,
+            notes=notes,
+            request_options=request_options,
+        )
+        return _response.data
+
+    def update_client_counterparty(
+        self,
+        client_id: str,
+        counterparty_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        country: typing.Optional[str] = OMIT,
+        company_number: typing.Optional[str] = OMIT,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientCounterpartyResponse:
+        """
+        Update the details of a counterparty of a specific client.
+
+        Parameters
+        ----------
+        client_id : str
+
+        counterparty_id : str
+
+        name : typing.Optional[str]
+            The counterparty's legal or trading name
+
+        country : typing.Optional[str]
+            ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+
+        company_number : typing.Optional[str]
+            The counterparty's company registration number
+
+        notes : typing.Optional[str]
+            Free-text notes about the counterparty
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientCounterpartyResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.clients.update_client_counterparty(
+            client_id="client_id",
+            counterparty_id="counterparty_id",
+        )
+        """
+        _response = self._raw_client.update_client_counterparty(
+            client_id,
+            counterparty_id,
+            name=name,
+            country=country,
+            company_number=company_number,
+            notes=notes,
+            request_options=request_options,
+        )
+        return _response.data
+
     def get_client_by_id(
         self, client_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ClientResponse:
@@ -748,6 +926,52 @@ class ClientsClient:
         """
         _response = self._raw_client.list_client_checklist_summaries(
             client_id, page=page, page_size=page_size, request_options=request_options
+        )
+        return _response.data
+
+    def list_all_client_counterparties(
+        self,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedResponseClientCounterpartyWithClientResponse:
+        """
+        Retrieve the counterparties of all your clients, e.g. their debtors or installers, with each client's name.
+
+        Parameters
+        ----------
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedResponseClientCounterpartyWithClientResponse
+            Successful Response
+
+        Examples
+        --------
+        from voltaria import Voltaria
+
+        client = Voltaria(
+            api_key="YOUR_API_KEY",
+        )
+        client.clients.list_all_client_counterparties()
+        """
+        _response = self._raw_client.list_all_client_counterparties(
+            page=page, page_size=page_size, order_by=order_by, q=q, request_options=request_options
         )
         return _response.data
 
@@ -1477,6 +1701,203 @@ class AsyncClientsClient:
         )
         return _response.data
 
+    async def list_client_counterparties(
+        self,
+        client_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedResponseClientCounterpartyResponse:
+        """
+        Retrieve the counterparties of a specific client, e.g. its debtors or installers.
+
+        Parameters
+        ----------
+        client_id : str
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedResponseClientCounterpartyResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.clients.list_client_counterparties(
+                client_id="client_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_client_counterparties(
+            client_id, page=page, page_size=page_size, order_by=order_by, q=q, request_options=request_options
+        )
+        return _response.data
+
+    async def create_client_counterparty(
+        self,
+        client_id: str,
+        *,
+        name: str,
+        country: typing.Optional[str] = OMIT,
+        company_number: typing.Optional[str] = OMIT,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientCounterpartyResponse:
+        """
+        Add a counterparty to a specific client. It starts with your default counterparty status.
+
+        Parameters
+        ----------
+        client_id : str
+
+        name : str
+            The counterparty's legal or trading name
+
+        country : typing.Optional[str]
+            ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+
+        company_number : typing.Optional[str]
+            The counterparty's company registration number
+
+        notes : typing.Optional[str]
+            Free-text notes about the counterparty
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientCounterpartyResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.clients.create_client_counterparty(
+                client_id="client_id",
+                name="Acme Installations Ltd",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.create_client_counterparty(
+            client_id,
+            name=name,
+            country=country,
+            company_number=company_number,
+            notes=notes,
+            request_options=request_options,
+        )
+        return _response.data
+
+    async def update_client_counterparty(
+        self,
+        client_id: str,
+        counterparty_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        country: typing.Optional[str] = OMIT,
+        company_number: typing.Optional[str] = OMIT,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> ClientCounterpartyResponse:
+        """
+        Update the details of a counterparty of a specific client.
+
+        Parameters
+        ----------
+        client_id : str
+
+        counterparty_id : str
+
+        name : typing.Optional[str]
+            The counterparty's legal or trading name
+
+        country : typing.Optional[str]
+            ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+
+        company_number : typing.Optional[str]
+            The counterparty's company registration number
+
+        notes : typing.Optional[str]
+            Free-text notes about the counterparty
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        ClientCounterpartyResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.clients.update_client_counterparty(
+                client_id="client_id",
+                counterparty_id="counterparty_id",
+            )
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.update_client_counterparty(
+            client_id,
+            counterparty_id,
+            name=name,
+            country=country,
+            company_number=company_number,
+            notes=notes,
+            request_options=request_options,
+        )
+        return _response.data
+
     async def get_client_by_id(
         self, client_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> ClientResponse:
@@ -1605,5 +2026,59 @@ class AsyncClientsClient:
         """
         _response = await self._raw_client.list_client_checklist_summaries(
             client_id, page=page, page_size=page_size, request_options=request_options
+        )
+        return _response.data
+
+    async def list_all_client_counterparties(
+        self,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> PaginatedResponseClientCounterpartyWithClientResponse:
+        """
+        Retrieve the counterparties of all your clients, e.g. their debtors or installers, with each client's name.
+
+        Parameters
+        ----------
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        PaginatedResponseClientCounterpartyWithClientResponse
+            Successful Response
+
+        Examples
+        --------
+        import asyncio
+
+        from voltaria import AsyncVoltaria
+
+        client = AsyncVoltaria(
+            api_key="YOUR_API_KEY",
+        )
+
+
+        async def main() -> None:
+            await client.clients.list_all_client_counterparties()
+
+
+        asyncio.run(main())
+        """
+        _response = await self._raw_client.list_all_client_counterparties(
+            page=page, page_size=page_size, order_by=order_by, q=q, request_options=request_options
         )
         return _response.data

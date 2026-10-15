@@ -1226,6 +1226,331 @@ client.clients.list_client_limits(
 </dl>
 </details>
 
+<details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">list_client_counterparties</a>(...) -> PaginatedResponseClientCounterpartyResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the counterparties of a specific client, e.g. its debtors or installers.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.clients.list_client_counterparties(
+    client_id="client_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'created_at:desc'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">create_client_counterparty</a>(...) -> ClientCounterpartyResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add a counterparty to a specific client. It starts with your default counterparty status.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.clients.create_client_counterparty(
+    client_id="client_id",
+    name="Acme Installations Ltd",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `str` — The counterparty's legal or trading name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `typing.Optional[str]` — ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company_number:** `typing.Optional[str]` — The counterparty's company registration number
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notes:** `typing.Optional[str]` — Free-text notes about the counterparty
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">update_client_counterparty</a>(...) -> ClientCounterpartyResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the details of a counterparty of a specific client.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.clients.update_client_counterparty(
+    client_id="client_id",
+    counterparty_id="counterparty_id",
+)
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**client_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**counterparty_id:** `str` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `typing.Optional[str]` — The counterparty's legal or trading name
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**country:** `typing.Optional[str]` — ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**company_number:** `typing.Optional[str]` — The counterparty's company registration number
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**notes:** `typing.Optional[str]` — Free-text notes about the counterparty
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">get_client_by_id</a>(...) -> ClientResponse</code></summary>
 <dl>
 <dd>
@@ -1442,6 +1767,101 @@ client.clients.list_client_checklist_summaries(
 <dd>
 
 **page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request_options:** `typing.Optional[RequestOptions]` — Request-specific configuration.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clients.<a href="src/voltaria_sdk/clients/client.py">list_all_client_counterparties</a>(...) -> PaginatedResponseClientCounterpartyWithClientResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve the counterparties of all your clients, e.g. their debtors or installers, with each client's name.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```python
+from voltaria import Voltaria
+from voltaria_sdk.environment import VoltariaEnvironment
+
+client = Voltaria(
+    token="<token>",
+    environment=VoltariaEnvironment.SANDBOX,
+)
+
+client.clients.list_all_client_counterparties()
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**page:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**page_size:** `typing.Optional[int]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order_by:** `typing.Optional[str]` — Field to order the results by, e.g., 'created_at:desc'
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
     
 </dd>
 </dl>
@@ -2569,7 +2989,7 @@ client.documents.list_documents()
 <dl>
 <dd>
 
-**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, loan_id, installment_id, waterfall_id, category, file_name, document_date, folder_path. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+**q:** `typing.Optional[str]` — Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, loan_id, installment_id, waterfall_id, client_counterparty_id, category, file_name, document_date, folder_path. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
     
 </dd>
 </dl>
@@ -2669,6 +3089,14 @@ client.documents.upload_document(
 <dd>
 
 **client_id:** `typing.Optional[str]` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**client_counterparty_id:** `typing.Optional[str]` — The ID of the client counterparty this document belongs to, if any. Requires `client_id`; the counterparty must belong to that client.
     
 </dd>
 </dl>

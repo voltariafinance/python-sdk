@@ -33,6 +33,11 @@ class DocumentResponse(UniversalBaseModel):
     The associated client ID
     """
 
+    client_counterparty_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The ID of the client counterparty the document belongs to, if applicable
+    """
+
     file_url: typing.Optional[str] = pydantic.Field(default=None)
     """
     The Presigned URL of the file. This is a temporary URL that allows you to download the file.

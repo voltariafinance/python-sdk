@@ -14,6 +14,7 @@ from ..core.serialization import convert_and_respect_annotation_metadata
 from ..errors.bad_request_error import BadRequestError
 from ..errors.not_found_error import NotFoundError
 from ..errors.unprocessable_entity_error import UnprocessableEntityError
+from ..types.client_counterparty_response import ClientCounterpartyResponse
 from ..types.client_data_response import ClientDataResponse
 from ..types.client_response import ClientResponse
 from ..types.client_type_enum import ClientTypeEnum
@@ -22,6 +23,10 @@ from ..types.jurisdiction_enum import JurisdictionEnum
 from ..types.limit_request_response import LimitRequestResponse
 from ..types.paginated_response_checklist_summary_partner_response import (
     PaginatedResponseChecklistSummaryPartnerResponse,
+)
+from ..types.paginated_response_client_counterparty_response import PaginatedResponseClientCounterpartyResponse
+from ..types.paginated_response_client_counterparty_with_client_response import (
+    PaginatedResponseClientCounterpartyWithClientResponse,
 )
 from ..types.paginated_response_client_limit_history_response import PaginatedResponseClientLimitHistoryResponse
 from ..types.paginated_response_client_response import PaginatedResponseClientResponse
@@ -980,6 +985,282 @@ class RawClientsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    def list_client_counterparties(
+        self,
+        client_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PaginatedResponseClientCounterpartyResponse]:
+        """
+        Retrieve the counterparties of a specific client, e.g. its debtors or installers.
+
+        Parameters
+        ----------
+        client_id : str
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PaginatedResponseClientCounterpartyResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/clients/{encode_path_param(client_id)}/counterparties",
+            method="GET",
+            params={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "q": q,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedResponseClientCounterpartyResponse,
+                    parse_obj_as(
+                        type_=PaginatedResponseClientCounterpartyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def create_client_counterparty(
+        self,
+        client_id: str,
+        *,
+        name: str,
+        country: typing.Optional[str] = OMIT,
+        company_number: typing.Optional[str] = OMIT,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ClientCounterpartyResponse]:
+        """
+        Add a counterparty to a specific client. It starts with your default counterparty status.
+
+        Parameters
+        ----------
+        client_id : str
+
+        name : str
+            The counterparty's legal or trading name
+
+        country : typing.Optional[str]
+            ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+
+        company_number : typing.Optional[str]
+            The counterparty's company registration number
+
+        notes : typing.Optional[str]
+            Free-text notes about the counterparty
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ClientCounterpartyResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/clients/{encode_path_param(client_id)}/counterparties",
+            method="POST",
+            json={
+                "name": name,
+                "country": country,
+                "company_number": company_number,
+                "notes": notes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientCounterpartyResponse,
+                    parse_obj_as(
+                        type_=ClientCounterpartyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def update_client_counterparty(
+        self,
+        client_id: str,
+        counterparty_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        country: typing.Optional[str] = OMIT,
+        company_number: typing.Optional[str] = OMIT,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[ClientCounterpartyResponse]:
+        """
+        Update the details of a counterparty of a specific client.
+
+        Parameters
+        ----------
+        client_id : str
+
+        counterparty_id : str
+
+        name : typing.Optional[str]
+            The counterparty's legal or trading name
+
+        country : typing.Optional[str]
+            ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+
+        company_number : typing.Optional[str]
+            The counterparty's company registration number
+
+        notes : typing.Optional[str]
+            Free-text notes about the counterparty
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[ClientCounterpartyResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            f"v2/clients/{encode_path_param(client_id)}/counterparties/{encode_path_param(counterparty_id)}",
+            method="PATCH",
+            json={
+                "name": name,
+                "country": country,
+                "company_number": company_number,
+                "notes": notes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientCounterpartyResponse,
+                    parse_obj_as(
+                        type_=ClientCounterpartyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     def get_client_by_id(
         self, client_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> HttpResponse[ClientResponse]:
@@ -1178,6 +1459,79 @@ class RawClientsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    def list_all_client_counterparties(
+        self,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> HttpResponse[PaginatedResponseClientCounterpartyWithClientResponse]:
+        """
+        Retrieve the counterparties of all your clients, e.g. their debtors or installers, with each client's name.
+
+        Parameters
+        ----------
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        HttpResponse[PaginatedResponseClientCounterpartyWithClientResponse]
+            Successful Response
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "v2/client-counterparties",
+            method="GET",
+            params={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "q": q,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedResponseClientCounterpartyWithClientResponse,
+                    parse_obj_as(
+                        type_=PaginatedResponseClientCounterpartyWithClientResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return HttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),
@@ -2144,6 +2498,282 @@ class AsyncRawClientsClient:
             )
         raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
 
+    async def list_client_counterparties(
+        self,
+        client_id: str,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PaginatedResponseClientCounterpartyResponse]:
+        """
+        Retrieve the counterparties of a specific client, e.g. its debtors or installers.
+
+        Parameters
+        ----------
+        client_id : str
+
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PaginatedResponseClientCounterpartyResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/clients/{encode_path_param(client_id)}/counterparties",
+            method="GET",
+            params={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "q": q,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedResponseClientCounterpartyResponse,
+                    parse_obj_as(
+                        type_=PaginatedResponseClientCounterpartyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def create_client_counterparty(
+        self,
+        client_id: str,
+        *,
+        name: str,
+        country: typing.Optional[str] = OMIT,
+        company_number: typing.Optional[str] = OMIT,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ClientCounterpartyResponse]:
+        """
+        Add a counterparty to a specific client. It starts with your default counterparty status.
+
+        Parameters
+        ----------
+        client_id : str
+
+        name : str
+            The counterparty's legal or trading name
+
+        country : typing.Optional[str]
+            ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+
+        company_number : typing.Optional[str]
+            The counterparty's company registration number
+
+        notes : typing.Optional[str]
+            Free-text notes about the counterparty
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ClientCounterpartyResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/clients/{encode_path_param(client_id)}/counterparties",
+            method="POST",
+            json={
+                "name": name,
+                "country": country,
+                "company_number": company_number,
+                "notes": notes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientCounterpartyResponse,
+                    parse_obj_as(
+                        type_=ClientCounterpartyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def update_client_counterparty(
+        self,
+        client_id: str,
+        counterparty_id: str,
+        *,
+        name: typing.Optional[str] = OMIT,
+        country: typing.Optional[str] = OMIT,
+        company_number: typing.Optional[str] = OMIT,
+        notes: typing.Optional[str] = OMIT,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[ClientCounterpartyResponse]:
+        """
+        Update the details of a counterparty of a specific client.
+
+        Parameters
+        ----------
+        client_id : str
+
+        counterparty_id : str
+
+        name : typing.Optional[str]
+            The counterparty's legal or trading name
+
+        country : typing.Optional[str]
+            ISO 3166-1 alpha-2 code of the country the counterparty is registered in
+
+        company_number : typing.Optional[str]
+            The counterparty's company registration number
+
+        notes : typing.Optional[str]
+            Free-text notes about the counterparty
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[ClientCounterpartyResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            f"v2/clients/{encode_path_param(client_id)}/counterparties/{encode_path_param(counterparty_id)}",
+            method="PATCH",
+            json={
+                "name": name,
+                "country": country,
+                "company_number": company_number,
+                "notes": notes,
+            },
+            headers={
+                "content-type": "application/json",
+            },
+            request_options=request_options,
+            omit=OMIT,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    ClientCounterpartyResponse,
+                    parse_obj_as(
+                        type_=ClientCounterpartyResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
+            if _response.status_code == 404:
+                raise NotFoundError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
     async def get_client_by_id(
         self, client_id: str, *, request_options: typing.Optional[RequestOptions] = None
     ) -> AsyncHttpResponse[ClientResponse]:
@@ -2342,6 +2972,79 @@ class AsyncRawClientsClient:
                         ),
                     ),
                 )
+            if _response.status_code == 422:
+                raise UnprocessableEntityError(
+                    headers=dict(_response.headers),
+                    body=typing.cast(
+                        typing.Any,
+                        parse_obj_as(
+                            type_=typing.Any,  # type: ignore
+                            object_=_response.json(),
+                        ),
+                    ),
+                )
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response.text)
+        except ValidationError as e:
+            raise ParsingError(
+                status_code=_response.status_code, headers=dict(_response.headers), body=_response.json(), cause=e
+            )
+        raise ApiError(status_code=_response.status_code, headers=dict(_response.headers), body=_response_json)
+
+    async def list_all_client_counterparties(
+        self,
+        *,
+        page: typing.Optional[int] = None,
+        page_size: typing.Optional[int] = None,
+        order_by: typing.Optional[str] = None,
+        q: typing.Optional[str] = None,
+        request_options: typing.Optional[RequestOptions] = None,
+    ) -> AsyncHttpResponse[PaginatedResponseClientCounterpartyWithClientResponse]:
+        """
+        Retrieve the counterparties of all your clients, e.g. their debtors or installers, with each client's name.
+
+        Parameters
+        ----------
+        page : typing.Optional[int]
+
+        page_size : typing.Optional[int]
+
+        order_by : typing.Optional[str]
+            Field to order the results by, e.g., 'created_at:desc'
+
+        q : typing.Optional[str]
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, name, country, company_number, status, created_at. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+
+        request_options : typing.Optional[RequestOptions]
+            Request-specific configuration.
+
+        Returns
+        -------
+        AsyncHttpResponse[PaginatedResponseClientCounterpartyWithClientResponse]
+            Successful Response
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "v2/client-counterparties",
+            method="GET",
+            params={
+                "page": page,
+                "page_size": page_size,
+                "order_by": order_by,
+                "q": q,
+            },
+            request_options=request_options,
+        )
+        try:
+            if 200 <= _response.status_code < 300:
+                _data = typing.cast(
+                    PaginatedResponseClientCounterpartyWithClientResponse,
+                    parse_obj_as(
+                        type_=PaginatedResponseClientCounterpartyWithClientResponse,  # type: ignore
+                        object_=_response.json(),
+                    ),
+                )
+                return AsyncHttpResponse(response=_response, data=_data)
             if _response.status_code == 422:
                 raise UnprocessableEntityError(
                     headers=dict(_response.headers),

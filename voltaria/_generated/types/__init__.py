@@ -27,6 +27,9 @@ if typing.TYPE_CHECKING:
     from .checklist_type_enum import ChecklistTypeEnum
     from .client_account_response import ClientAccountResponse
     from .client_base_info import ClientBaseInfo
+    from .client_counterparty_response import ClientCounterpartyResponse
+    from .client_counterparty_status_enum import ClientCounterpartyStatusEnum
+    from .client_counterparty_with_client_response import ClientCounterpartyWithClientResponse
     from .client_data_response import ClientDataResponse
     from .client_investor_response import ClientInvestorResponse
     from .client_limit_history_response import ClientLimitHistoryResponse
@@ -71,6 +74,10 @@ if typing.TYPE_CHECKING:
     from .note_response import NoteResponse
     from .paginated_response_checklist_summary_partner_response import PaginatedResponseChecklistSummaryPartnerResponse
     from .paginated_response_client_account_response import PaginatedResponseClientAccountResponse
+    from .paginated_response_client_counterparty_response import PaginatedResponseClientCounterpartyResponse
+    from .paginated_response_client_counterparty_with_client_response import (
+        PaginatedResponseClientCounterpartyWithClientResponse,
+    )
     from .paginated_response_client_investor_response import PaginatedResponseClientInvestorResponse
     from .paginated_response_client_limit_history_response import PaginatedResponseClientLimitHistoryResponse
     from .paginated_response_client_response import PaginatedResponseClientResponse
@@ -144,6 +151,9 @@ _dynamic_imports: typing.Dict[str, str] = {
     "ChecklistTypeEnum": ".checklist_type_enum",
     "ClientAccountResponse": ".client_account_response",
     "ClientBaseInfo": ".client_base_info",
+    "ClientCounterpartyResponse": ".client_counterparty_response",
+    "ClientCounterpartyStatusEnum": ".client_counterparty_status_enum",
+    "ClientCounterpartyWithClientResponse": ".client_counterparty_with_client_response",
     "ClientDataResponse": ".client_data_response",
     "ClientInvestorResponse": ".client_investor_response",
     "ClientLimitHistoryResponse": ".client_limit_history_response",
@@ -188,6 +198,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "NoteResponse": ".note_response",
     "PaginatedResponseChecklistSummaryPartnerResponse": ".paginated_response_checklist_summary_partner_response",
     "PaginatedResponseClientAccountResponse": ".paginated_response_client_account_response",
+    "PaginatedResponseClientCounterpartyResponse": ".paginated_response_client_counterparty_response",
+    "PaginatedResponseClientCounterpartyWithClientResponse": ".paginated_response_client_counterparty_with_client_response",
     "PaginatedResponseClientInvestorResponse": ".paginated_response_client_investor_response",
     "PaginatedResponseClientLimitHistoryResponse": ".paginated_response_client_limit_history_response",
     "PaginatedResponseClientResponse": ".paginated_response_client_response",
@@ -281,6 +293,9 @@ __all__ = [
     "ChecklistTypeEnum",
     "ClientAccountResponse",
     "ClientBaseInfo",
+    "ClientCounterpartyResponse",
+    "ClientCounterpartyStatusEnum",
+    "ClientCounterpartyWithClientResponse",
     "ClientDataResponse",
     "ClientInvestorResponse",
     "ClientLimitHistoryResponse",
@@ -325,6 +340,8 @@ __all__ = [
     "NoteResponse",
     "PaginatedResponseChecklistSummaryPartnerResponse",
     "PaginatedResponseClientAccountResponse",
+    "PaginatedResponseClientCounterpartyResponse",
+    "PaginatedResponseClientCounterpartyWithClientResponse",
     "PaginatedResponseClientInvestorResponse",
     "PaginatedResponseClientLimitHistoryResponse",
     "PaginatedResponseClientResponse",

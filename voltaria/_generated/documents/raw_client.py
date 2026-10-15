@@ -60,7 +60,7 @@ class RawDocumentsClient:
             Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
 
         q : typing.Optional[str]
-            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, loan_id, installment_id, waterfall_id, category, file_name, document_date, folder_path. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, loan_id, installment_id, waterfall_id, client_counterparty_id, category, file_name, document_date, folder_path. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -133,6 +133,7 @@ class RawDocumentsClient:
         file_name: str,
         file: core.File,
         client_id: typing.Optional[str] = None,
+        client_counterparty_id: typing.Optional[str] = None,
         loan_id: typing.Optional[str] = None,
         installment_id: typing.Optional[str] = None,
         waterfall_id: typing.Optional[str] = None,
@@ -154,6 +155,9 @@ class RawDocumentsClient:
             See core.File for more documentation
 
         client_id : typing.Optional[str]
+
+        client_counterparty_id : typing.Optional[str]
+            The ID of the client counterparty this document belongs to, if any. Requires `client_id`; the counterparty must belong to that client.
 
         loan_id : typing.Optional[str]
 
@@ -177,6 +181,7 @@ class RawDocumentsClient:
             method="POST",
             params={
                 "client_id": client_id,
+                "client_counterparty_id": client_counterparty_id,
                 "loan_id": loan_id,
                 "installment_id": installment_id,
                 "waterfall_id": waterfall_id,
@@ -444,7 +449,7 @@ class AsyncRawDocumentsClient:
             Field to order the results by, e.g., 'created_at:desc,updated_at:asc'
 
         q : typing.Optional[str]
-            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, loan_id, installment_id, waterfall_id, category, file_name, document_date, folder_path. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
+            Query string for filtering. Format: "field:operator:value;...". Supported fields: id, client_id, loan_id, installment_id, waterfall_id, client_counterparty_id, category, file_name, document_date, folder_path. Supported operators: is, in, not_in, contains, not_contains, like, not_like, ilike, not_ilike, gt, gte, lt, lte, starts_with, ends_with, is_null, is_not_null.
 
         request_options : typing.Optional[RequestOptions]
             Request-specific configuration.
@@ -517,6 +522,7 @@ class AsyncRawDocumentsClient:
         file_name: str,
         file: core.File,
         client_id: typing.Optional[str] = None,
+        client_counterparty_id: typing.Optional[str] = None,
         loan_id: typing.Optional[str] = None,
         installment_id: typing.Optional[str] = None,
         waterfall_id: typing.Optional[str] = None,
@@ -538,6 +544,9 @@ class AsyncRawDocumentsClient:
             See core.File for more documentation
 
         client_id : typing.Optional[str]
+
+        client_counterparty_id : typing.Optional[str]
+            The ID of the client counterparty this document belongs to, if any. Requires `client_id`; the counterparty must belong to that client.
 
         loan_id : typing.Optional[str]
 
@@ -561,6 +570,7 @@ class AsyncRawDocumentsClient:
             method="POST",
             params={
                 "client_id": client_id,
+                "client_counterparty_id": client_counterparty_id,
                 "loan_id": loan_id,
                 "installment_id": installment_id,
                 "waterfall_id": waterfall_id,
