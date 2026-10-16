@@ -365,6 +365,7 @@ class RawLoansClient:
         correlation_id: typing.Optional[str] = OMIT,
         loan_date: typing.Optional[dt.date] = OMIT,
         repayment_method: typing.Optional[LoanRepaymentMethodEnum] = OMIT,
+        client_counterparty_id: typing.Optional[str] = OMIT,
         data: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> HttpResponse[LoanResponseWithInstallments]:
@@ -394,6 +395,9 @@ class RawLoansClient:
         repayment_method : typing.Optional[LoanRepaymentMethodEnum]
             How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
 
+        client_counterparty_id : typing.Optional[str]
+            The ID of the client counterparty this loan relates to. It must belong to the loan's client.
+
         data : typing.Optional[typing.Dict[str, typing.Any]]
             Additional data related to the loan
 
@@ -420,6 +424,7 @@ class RawLoansClient:
                     object_=installments, annotation=typing.Sequence[LoanInstallmentCreatePayload], direction="write"
                 ),
                 "repayment_method": repayment_method,
+                "client_counterparty_id": client_counterparty_id,
                 "data": data,
             },
             headers={
@@ -1285,6 +1290,7 @@ class AsyncRawLoansClient:
         correlation_id: typing.Optional[str] = OMIT,
         loan_date: typing.Optional[dt.date] = OMIT,
         repayment_method: typing.Optional[LoanRepaymentMethodEnum] = OMIT,
+        client_counterparty_id: typing.Optional[str] = OMIT,
         data: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> AsyncHttpResponse[LoanResponseWithInstallments]:
@@ -1314,6 +1320,9 @@ class AsyncRawLoansClient:
         repayment_method : typing.Optional[LoanRepaymentMethodEnum]
             How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
 
+        client_counterparty_id : typing.Optional[str]
+            The ID of the client counterparty this loan relates to. It must belong to the loan's client.
+
         data : typing.Optional[typing.Dict[str, typing.Any]]
             Additional data related to the loan
 
@@ -1340,6 +1349,7 @@ class AsyncRawLoansClient:
                     object_=installments, annotation=typing.Sequence[LoanInstallmentCreatePayload], direction="write"
                 ),
                 "repayment_method": repayment_method,
+                "client_counterparty_id": client_counterparty_id,
                 "data": data,
             },
             headers={

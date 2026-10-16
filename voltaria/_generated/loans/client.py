@@ -232,6 +232,7 @@ class LoansClient:
         correlation_id: typing.Optional[str] = OMIT,
         loan_date: typing.Optional[dt.date] = OMIT,
         repayment_method: typing.Optional[LoanRepaymentMethodEnum] = OMIT,
+        client_counterparty_id: typing.Optional[str] = OMIT,
         data: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LoanResponseWithInstallments:
@@ -260,6 +261,9 @@ class LoansClient:
 
         repayment_method : typing.Optional[LoanRepaymentMethodEnum]
             How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
+
+        client_counterparty_id : typing.Optional[str]
+            The ID of the client counterparty this loan relates to. It must belong to the loan's client.
 
         data : typing.Optional[typing.Dict[str, typing.Any]]
             Additional data related to the loan
@@ -303,6 +307,7 @@ class LoansClient:
             correlation_id=correlation_id,
             loan_date=loan_date,
             repayment_method=repayment_method,
+            client_counterparty_id=client_counterparty_id,
             data=data,
             request_options=request_options,
         )
@@ -801,6 +806,7 @@ class AsyncLoansClient:
         correlation_id: typing.Optional[str] = OMIT,
         loan_date: typing.Optional[dt.date] = OMIT,
         repayment_method: typing.Optional[LoanRepaymentMethodEnum] = OMIT,
+        client_counterparty_id: typing.Optional[str] = OMIT,
         data: typing.Optional[typing.Dict[str, typing.Any]] = OMIT,
         request_options: typing.Optional[RequestOptions] = None,
     ) -> LoanResponseWithInstallments:
@@ -829,6 +835,9 @@ class AsyncLoansClient:
 
         repayment_method : typing.Optional[LoanRepaymentMethodEnum]
             How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
+
+        client_counterparty_id : typing.Optional[str]
+            The ID of the client counterparty this loan relates to. It must belong to the loan's client.
 
         data : typing.Optional[typing.Dict[str, typing.Any]]
             Additional data related to the loan
@@ -879,6 +888,7 @@ class AsyncLoansClient:
             correlation_id=correlation_id,
             loan_date=loan_date,
             repayment_method=repayment_method,
+            client_counterparty_id=client_counterparty_id,
             data=data,
             request_options=request_options,
         )

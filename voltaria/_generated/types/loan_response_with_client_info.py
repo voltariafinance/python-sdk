@@ -98,6 +98,11 @@ class LoanResponseWithClientInfo(UniversalBaseModel):
     How each installment is split into principal and interest
     """
 
+    client_counterparty_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The ID of the client counterparty the loan relates to, if applicable
+    """
+
     data: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Additional data related to the loan

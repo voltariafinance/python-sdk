@@ -5145,6 +5145,14 @@ client.loans.create_loan(
 <dl>
 <dd>
 
+**client_counterparty_id:** `typing.Optional[str]` — The ID of the client counterparty this loan relates to. It must belong to the loan's client.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **data:** `typing.Optional[typing.Dict[str, typing.Any]]` — Additional data related to the loan
     
 </dd>

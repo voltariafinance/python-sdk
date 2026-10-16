@@ -47,6 +47,11 @@ class BulkLoanItemPayload(UniversalBaseModel):
     How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
     """
 
+    client_counterparty_id: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    The ID of the client counterparty this loan relates to. It must belong to the loan's client.
+    """
+
     data: typing.Optional[typing.Dict[str, typing.Any]] = pydantic.Field(default=None)
     """
     Additional data related to the loan
