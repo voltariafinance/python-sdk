@@ -44,7 +44,7 @@ class BulkLoanItemPayload(UniversalBaseModel):
 
     repayment_method: typing.Optional[LoanRepaymentMethodEnum] = pydantic.Field(default=None)
     """
-    How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
+    How each installment is split into principal and interest: pmt (amortising), constant_principal (loan amount divided equally across installments, the rest is interest) or custom (you send each installment's principal and interest; total principal must equal the loan amount, and the loan amount and installments cannot be changed later)
     """
 
     client_counterparty_id: typing.Optional[str] = pydantic.Field(default=None)

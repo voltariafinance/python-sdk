@@ -2,4 +2,4 @@
 
 import typing
 
-LoanRepaymentMethodEnum = typing.Union[typing.Literal["pmt", "constant_principal"], typing.Any]
+LoanRepaymentMethodEnum = typing.Union[typing.Literal["pmt", "constant_principal", "custom"], typing.Any]

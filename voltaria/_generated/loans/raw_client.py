@@ -393,7 +393,7 @@ class RawLoansClient:
             Please provide the loan_date if it differs from the loan creation time (created_at). Otherwise, it will be automatically set.
 
         repayment_method : typing.Optional[LoanRepaymentMethodEnum]
-            How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
+            How each installment is split into principal and interest: pmt (amortising), constant_principal (loan amount divided equally across installments, the rest is interest) or custom (you send each installment's principal and interest; total principal must equal the loan amount, and the loan amount and installments cannot be changed later)
 
         client_counterparty_id : typing.Optional[str]
             The ID of the client counterparty this loan relates to. It must belong to the loan's client.
@@ -1318,7 +1318,7 @@ class AsyncRawLoansClient:
             Please provide the loan_date if it differs from the loan creation time (created_at). Otherwise, it will be automatically set.
 
         repayment_method : typing.Optional[LoanRepaymentMethodEnum]
-            How each installment is split into principal and interest: pmt (amortising) or constant_principal (loan amount divided equally across installments, the rest is interest)
+            How each installment is split into principal and interest: pmt (amortising), constant_principal (loan amount divided equally across installments, the rest is interest) or custom (you send each installment's principal and interest; total principal must equal the loan amount, and the loan amount and installments cannot be changed later)
 
         client_counterparty_id : typing.Optional[str]
             The ID of the client counterparty this loan relates to. It must belong to the loan's client.

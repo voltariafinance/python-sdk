@@ -6,6 +6,8 @@ import typing
 import pydantic
 from ..core.pydantic_utilities import IS_PYDANTIC_V2, UniversalBaseModel
 from .loan_installment_create_payload_amount import LoanInstallmentCreatePayloadAmount
+from .loan_installment_create_payload_interest import LoanInstallmentCreatePayloadInterest
+from .loan_installment_create_payload_principal import LoanInstallmentCreatePayloadPrincipal
 
 
 class LoanInstallmentCreatePayload(UniversalBaseModel):
@@ -17,6 +19,16 @@ class LoanInstallmentCreatePayload(UniversalBaseModel):
     amount: LoanInstallmentCreatePayloadAmount = pydantic.Field()
     """
     The amount due for this installment
+    """
+
+    principal: typing.Optional[LoanInstallmentCreatePayloadPrincipal] = pydantic.Field(default=None)
+    """
+    The principal part of the installment amount. Only when creating a loan with repayment_method custom, together with interest
+    """
+
+    interest: typing.Optional[LoanInstallmentCreatePayloadInterest] = pydantic.Field(default=None)
+    """
+    The interest part of the installment amount. Only when creating a loan with repayment_method custom, together with principal
     """
 
     if IS_PYDANTIC_V2:

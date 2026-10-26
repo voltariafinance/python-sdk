@@ -62,6 +62,8 @@ if typing.TYPE_CHECKING:
     from .limit_request_status_enum import LimitRequestStatusEnum
     from .loan_installment_create_payload import LoanInstallmentCreatePayload
     from .loan_installment_create_payload_amount import LoanInstallmentCreatePayloadAmount
+    from .loan_installment_create_payload_interest import LoanInstallmentCreatePayloadInterest
+    from .loan_installment_create_payload_principal import LoanInstallmentCreatePayloadPrincipal
     from .loan_installment_response import LoanInstallmentResponse
     from .loan_investor_response import LoanInvestorResponse
     from .loan_payment_status_enum import LoanPaymentStatusEnum
@@ -186,6 +188,8 @@ _dynamic_imports: typing.Dict[str, str] = {
     "LimitRequestStatusEnum": ".limit_request_status_enum",
     "LoanInstallmentCreatePayload": ".loan_installment_create_payload",
     "LoanInstallmentCreatePayloadAmount": ".loan_installment_create_payload_amount",
+    "LoanInstallmentCreatePayloadInterest": ".loan_installment_create_payload_interest",
+    "LoanInstallmentCreatePayloadPrincipal": ".loan_installment_create_payload_principal",
     "LoanInstallmentResponse": ".loan_installment_response",
     "LoanInvestorResponse": ".loan_investor_response",
     "LoanPaymentStatusEnum": ".loan_payment_status_enum",
@@ -328,6 +332,8 @@ __all__ = [
     "LimitRequestStatusEnum",
     "LoanInstallmentCreatePayload",
     "LoanInstallmentCreatePayloadAmount",
+    "LoanInstallmentCreatePayloadInterest",
+    "LoanInstallmentCreatePayloadPrincipal",
     "LoanInstallmentResponse",
     "LoanInvestorResponse",
     "LoanPaymentStatusEnum",
