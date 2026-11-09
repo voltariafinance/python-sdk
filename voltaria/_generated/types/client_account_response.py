@@ -83,6 +83,11 @@ class ClientAccountResponse(UniversalBaseModel):
     Confirmation of Payee result for this account. `null` when the account has never been checked, or when the check does not apply to it. One of: `matched`, `close_match`, `not_matched`, `account_not_found`, `unavailable`.
     """
 
+    bank_name: typing.Optional[str] = pydantic.Field(default=None)
+    """
+    Bank the sort code belongs to, from the account's Confirmation of Payee check. `null` when no check has named the bank: the account has never been checked, the check does not apply to it, or the provider returned no bank.
+    """
+
     created_at: dt.datetime = pydantic.Field()
     """
     Timestamp when the account was created.
